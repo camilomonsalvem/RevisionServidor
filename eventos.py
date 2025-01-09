@@ -35,8 +35,8 @@ handle = win32evtlog.OpenEventLog(server, log_type)
 
 flags = win32evtlog.EVENTLOG_BACKWARDS_READ | win32evtlog.EVENTLOG_SEQUENTIAL_READ
 
-# Contador de eventos cargados
-event_count = 0
+# Diccionario para almacenar eventos únicos y sus conteos
+event_summary = {}
 
 try:
     print("Procesando eventos...")
@@ -51,8 +51,14 @@ try:
                 event.TimeGenerated.month == input_month and
                 event.TimeGenerated.day == input_day
             ):
-                try:
-                    event_data = {
+                # Crear una clave única para el evento
+                event_key = (event.EventID, event.SourceName)
+                
+                # Incrementar el conteo en el diccionario
+                if event_key in event_summary:
+                    event_summary[event_key]['NoEventos'] += 1
+                else:
+                    event_summary[event_key] = {
                         'NombreRegistro': 'Sistema',
                         'IdEvento': str(event.EventID),
                         'Origen': str(event.SourceName),
@@ -61,39 +67,44 @@ try:
                         'FechaGenerado': event.TimeGenerated.strftime('%Y-%m-%d %H:%M:%S'),
                         'Nivel': str(event.EventType),
                         'User': log_type,
+                        'NoEventos': 1
                     }
-                    
-                    # Recortar texto largo para SharePoint
-                    event_data['Detalle'] = event_data['Detalle'][:255]
-
-                    # Crear un nuevo elemento en la lista de SharePoint
-                    item_properties = {
-                        'Title': event_data['NombreRegistro'],
-                        'Id_x0020_del_x0020_Evento': event_data['IdEvento'],
-                        'Origen': event_data['Origen'],
-                        'Categoria_x0020_de_x0020_Tarea': event_data['Categoria'],
-                        'Detalle': event_data['Detalle'],
-                        'Fecha': event_data['FechaGenerado'],
-                        'Nivel': {
-                            1: "Error",
-                            2: "Advertencia",
-                            4: "Información",
-                            8: "Auditoría exitosa",
-                            16: "Error de auditoría"
-                        }.get(event.EventType, "Desconocido"),
-                        'User': event_data['User'],
-                        'No_x0020_de_x0020_Eventos':
-                    }
-                    new_item = list_obj.add_item(item_properties)
-                    ctx.execute_query()
-
-                    # Incrementar el contador de eventos cargados
-                    event_count += 1
-                    time.sleep(0.5)  # Reducir throttling
-                except Exception as e:
-                    print(f"Error al cargar el evento {event.EventID}: {e}")
 except Exception as e:
     print(f"Error al procesar eventos: {e}")
+
+# Subir eventos únicos a SharePoint
+event_count = 0
+for event_key, event_data in event_summary.items():
+    try:
+        # Recortar texto largo para SharePoint
+        event_data['Detalle'] = event_data['Detalle'][:255]
+
+        # Crear un nuevo elemento en la lista de SharePoint
+        item_properties = {
+            'Title': event_data['NombreRegistro'],
+            'Id_x0020_del_x0020_Evento': event_data['IdEvento'],
+            'Origen': event_data['Origen'],
+            'Categoria_x0020_de_x0020_Tarea': event_data['Categoria'],
+            'Detalle': event_data['Detalle'],
+            'Fecha': event_data['FechaGenerado'],
+            'Nivel': {
+                1: "Error",
+                2: "Advertencia",
+                4: "Información",
+                8: "Auditoría exitosa",
+                16: "Error de auditoría"
+            }.get(int(event_data['Nivel']), "Desconocido"),
+            'User': event_data['User'],
+            'No_x0020_de_x0020_Eventos': event_data['NoEventos']
+        }
+        new_item = list_obj.add_item(item_properties)
+        ctx.execute_query()
+
+        # Incrementar el contador de eventos cargados
+        event_count += 1
+        time.sleep(0.5)  # Reducir throttling
+    except Exception as e:
+        print(f"Error al cargar el evento {event_data['IdEvento']}: {e}")
 
 # Imprimir el total de eventos cargados al final
 print(f"Procesamiento completado. Total de eventos cargados: {event_count}")
