@@ -1,0 +1,1780 @@
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 1
+Event ID (Completo): 1
+Source: Microsoft-Windows-Kernel-General
+Nivel: 4
+Time Generated: 2025-01-12 23:55:12
+Descripción: Posible detección de CVE: 2025-01-13T04:55:12.0295019Z
+Información adicional: 2025-01-13T04:55:12.0287090Z
+
+Este evento se genera cuando se detecta un intento de aprovechar una vulnerabilidad conocida (2025-01-13T04:55:12.0295019Z).
+Este evento lo genera un proceso de modo de usuario.
+Computer Name: CamiloMM
+Record Number: 23562
+String Inserts: 2025-01-13T04:55:12.0295019Z | 2025-01-13T04:55:12.0287090Z | 0 | 1 | \Device\HarddiskVolume3\Windows\System32\svchost.exe | 16624 | 2025-01-12T23:55:12.0295019Z | 300 | false | false
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 24
+Event ID (Completo): 24
+Source: Microsoft-Windows-Kernel-General
+Nivel: 4
+Time Generated: 2025-01-12 23:55:12
+Descripción: Descripción generada a partir de cadenas insertadas: 0, 300, 0, 0, 0
+Computer Name: CamiloMM
+Record Number: 23561
+String Inserts: 0 | 300 | 0 | 0 | 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 1
+Event ID (Completo): 1
+Source: Microsoft-Windows-Kernel-General
+Nivel: 4
+Time Generated: 2025-01-12 23:55:12
+Descripción: Posible detección de CVE: 2025-01-13T04:55:12.0274531Z
+Información adicional: 2025-01-13T04:55:12.0266747Z
+
+Este evento se genera cuando se detecta un intento de aprovechar una vulnerabilidad conocida (2025-01-13T04:55:12.0274531Z).
+Este evento lo genera un proceso de modo de usuario.
+Computer Name: CamiloMM
+Record Number: 23560
+String Inserts: 2025-01-13T04:55:12.0274531Z | 2025-01-13T04:55:12.0266747Z | 0 | 1 | \Device\HarddiskVolume3\Windows\System32\svchost.exe | 16624 | 2025-01-12T23:55:12.0274531Z | 300 | false | false
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 24
+Event ID (Completo): 24
+Source: Microsoft-Windows-Kernel-General
+Nivel: 4
+Time Generated: 2025-01-12 23:55:12
+Descripción: Descripción generada a partir de cadenas insertadas: 0, 300, 0, 0, 0
+Computer Name: CamiloMM
+Record Number: 23559
+String Inserts: 0 | 300 | 0 | 0 | 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 35
+Event ID (Completo): 35
+Source: Microsoft-Windows-Time-Service
+Nivel: 4
+Time Generated: 2025-01-12 23:55:12
+Descripción: El servicio de hora está sincronizando la hora del sistema con el origen de la hora time.windows.com,0x9 (ntp.m|0x9|0.0.0.0:123->40.119.6.228:123) con el id. de referencia 3825628968. El número de capa local actual es 4.
+Computer Name: CamiloMM
+Record Number: 23558
+String Inserts: time.windows.com,0x9 (ntp.m|0x9|0.0.0.0:123->40.119.6.228:123) | 3825628968 | 4
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 1
+Event ID (Completo): 1
+Source: Microsoft-Windows-Kernel-General
+Nivel: 4
+Time Generated: 2025-01-12 23:55:12
+Descripción: Posible detección de CVE: 2025-01-13T04:55:12.0266747Z
+Información adicional: 2025-01-13T04:55:26.3064733Z
+
+Este evento se genera cuando se detecta un intento de aprovechar una vulnerabilidad conocida (2025-01-13T04:55:12.0266747Z).
+Este evento lo genera un proceso de modo de usuario.
+Computer Name: CamiloMM
+Record Number: 23557
+String Inserts: 2025-01-13T04:55:12.0266747Z | 2025-01-13T04:55:26.3064733Z | -14279 | 1 | \Device\HarddiskVolume3\Windows\System32\svchost.exe | 16624 | 2025-01-12T23:55:12.0266747Z | 300 | false | false
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 24
+Event ID (Completo): 24
+Source: Microsoft-Windows-Kernel-General
+Nivel: 4
+Time Generated: 2025-01-12 23:55:12
+Descripción: Descripción generada a partir de cadenas insertadas: 0, 300, 0, 0, 0
+Computer Name: CamiloMM
+Record Number: 23556
+String Inserts: 0 | 300 | 0 | 0 | 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 37
+Event ID (Completo): 37
+Source: Microsoft-Windows-Time-Service
+Nivel: 4
+Time Generated: 2025-01-12 23:55:26
+Descripción: El proveedor de hora NtpClient está recibiendo datos de hora  válidos desde time.windows.com,0x9 (ntp.m|0x9|0.0.0.0:123->40.119.6.228:123).
+Computer Name: CamiloMM
+Record Number: 23555
+String Inserts: time.windows.com,0x9 (ntp.m|0x9|0.0.0.0:123->40.119.6.228:123)
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 4266
+Event ID (Completo): -2147479382
+Source: Tcpip
+Nivel: 2
+Time Generated: 2025-01-12 23:18:35
+Descripción: Error en una solicitud para asignar un número de puerto efímero del espacio de puertos UDP global porque todos los puertos están en uso.
+Computer Name: CamiloMM
+Record Number: 23554
+String Inserts: 
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7040
+Event ID (Completo): 1073748864
+Source: Service Control Manager
+Nivel: 4
+Time Generated: 2025-01-12 22:06:34
+Descripción: El tipo de inicio del servicio Servicio de transferencia inteligente en segundo plano (BITS) se cambió de inicio automático a inicio por solicitud.
+Computer Name: CamiloMM
+Record Number: 23553
+String Inserts: Servicio de transferencia inteligente en segundo plano (BITS) | inicio automático | inicio por solicitud | BITS
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 10016
+Event ID (Completo): 10016
+Source: DCOM
+Nivel: 2
+Time Generated: 2025-01-12 22:03:30
+Descripción: <The description for Event ID ( 10016 ) in Source ( 'DCOM' ) could not be found. It contains the following insertion string(s):'específico de la aplicación, Local, Activación, {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54}, {15C20B67-12E7-4BB6-92BB-7AFF07997402}, CamiloMM, monsa, S-1-5-21-854866677-1834114146-3748758031-1001, LocalHost (con LRPC), SpotifyAB.SpotifyMusic_1.253.440.0_x64__zpdnekdrzrea0, No disponible'.>
+Computer Name: CamiloMM
+Record Number: 23552
+String Inserts: específico de la aplicación | Local | Activación | {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54} | {15C20B67-12E7-4BB6-92BB-7AFF07997402} | CamiloMM | monsa | S-1-5-21-854866677-1834114146-3748758031-1001 | LocalHost (con LRPC) | SpotifyAB.SpotifyMusic_1.253.440.0_x64__zpdnekdrzrea0 | No disponible
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7040
+Event ID (Completo): 1073748864
+Source: Service Control Manager
+Nivel: 4
+Time Generated: 2025-01-12 21:31:46
+Descripción: El tipo de inicio del servicio Servicio de transferencia inteligente en segundo plano (BITS) se cambió de inicio por solicitud a inicio automático.
+Computer Name: CamiloMM
+Record Number: 23551
+String Inserts: Servicio de transferencia inteligente en segundo plano (BITS) | inicio por solicitud | inicio automático | BITS
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 10016
+Event ID (Completo): 10016
+Source: DCOM
+Nivel: 2
+Time Generated: 2025-01-12 21:31:32
+Descripción: <The description for Event ID ( 10016 ) in Source ( 'DCOM' ) could not be found. It contains the following insertion string(s):'específico de la aplicación, Local, Activación, {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54}, {15C20B67-12E7-4BB6-92BB-7AFF07997402}, CamiloMM, monsa, S-1-5-21-854866677-1834114146-3748758031-1001, LocalHost (con LRPC), SpotifyAB.SpotifyMusic_1.253.440.0_x64__zpdnekdrzrea0, No disponible'.>
+Computer Name: CamiloMM
+Record Number: 23550
+String Inserts: específico de la aplicación | Local | Activación | {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54} | {15C20B67-12E7-4BB6-92BB-7AFF07997402} | CamiloMM | monsa | S-1-5-21-854866677-1834114146-3748758031-1001 | LocalHost (con LRPC) | SpotifyAB.SpotifyMusic_1.253.440.0_x64__zpdnekdrzrea0 | No disponible
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7040
+Event ID (Completo): 1073748864
+Source: Service Control Manager
+Nivel: 4
+Time Generated: 2025-01-12 19:54:42
+Descripción: El tipo de inicio del servicio Servicio de transferencia inteligente en segundo plano (BITS) se cambió de inicio automático a inicio por solicitud.
+Computer Name: CamiloMM
+Record Number: 23549
+String Inserts: Servicio de transferencia inteligente en segundo plano (BITS) | inicio automático | inicio por solicitud | BITS
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 10016
+Event ID (Completo): 10016
+Source: DCOM
+Nivel: 2
+Time Generated: 2025-01-12 19:42:42
+Descripción: <The description for Event ID ( 10016 ) in Source ( 'DCOM' ) could not be found. It contains the following insertion string(s):'específico de la aplicación, Local, Activación, {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54}, {15C20B67-12E7-4BB6-92BB-7AFF07997402}, CamiloMM, monsa, S-1-5-21-854866677-1834114146-3748758031-1001, LocalHost (con LRPC), No disponible, No disponible'.>
+Computer Name: CamiloMM
+Record Number: 23548
+String Inserts: específico de la aplicación | Local | Activación | {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54} | {15C20B67-12E7-4BB6-92BB-7AFF07997402} | CamiloMM | monsa | S-1-5-21-854866677-1834114146-3748758031-1001 | LocalHost (con LRPC) | No disponible | No disponible
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7040
+Event ID (Completo): 1073748864
+Source: Service Control Manager
+Nivel: 4
+Time Generated: 2025-01-12 19:42:40
+Descripción: El tipo de inicio del servicio Servicio de transferencia inteligente en segundo plano (BITS) se cambió de inicio por solicitud a inicio automático.
+Computer Name: CamiloMM
+Record Number: 23547
+String Inserts: Servicio de transferencia inteligente en segundo plano (BITS) | inicio por solicitud | inicio automático | BITS
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7040
+Event ID (Completo): 1073748864
+Source: Service Control Manager
+Nivel: 4
+Time Generated: 2025-01-12 19:40:48
+Descripción: El tipo de inicio del servicio Servicio de transferencia inteligente en segundo plano (BITS) se cambió de inicio automático a inicio por solicitud.
+Computer Name: CamiloMM
+Record Number: 23546
+String Inserts: Servicio de transferencia inteligente en segundo plano (BITS) | inicio automático | inicio por solicitud | BITS
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 105
+Event ID (Completo): 105
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 19:38:31
+Descripción: Descripción generada a partir de cadenas insertadas: true, 51374, 52730
+Computer Name: CamiloMM
+Record Number: 23545
+String Inserts: true | 51374 | 52730
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 10016
+Event ID (Completo): 10016
+Source: DCOM
+Nivel: 2
+Time Generated: 2025-01-12 19:38:03
+Descripción: <The description for Event ID ( 10016 ) in Source ( 'DCOM' ) could not be found. It contains the following insertion string(s):'específico de la aplicación, Local, Activación, {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54}, {15C20B67-12E7-4BB6-92BB-7AFF07997402}, CamiloMM, monsa, S-1-5-21-854866677-1834114146-3748758031-1001, LocalHost (con LRPC), MSTeams_24335.208.3315.1951_x64__8wekyb3d8bbwe, No disponible'.>
+Computer Name: CamiloMM
+Record Number: 23544
+String Inserts: específico de la aplicación | Local | Activación | {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54} | {15C20B67-12E7-4BB6-92BB-7AFF07997402} | CamiloMM | monsa | S-1-5-21-854866677-1834114146-3748758031-1001 | LocalHost (con LRPC) | MSTeams_24335.208.3315.1951_x64__8wekyb3d8bbwe | No disponible
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 10016
+Event ID (Completo): 10016
+Source: DCOM
+Nivel: 2
+Time Generated: 2025-01-12 19:37:43
+Descripción: <The description for Event ID ( 10016 ) in Source ( 'DCOM' ) could not be found. It contains the following insertion string(s):'específico de la aplicación, Local, Activación, {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54}, {15C20B67-12E7-4BB6-92BB-7AFF07997402}, CamiloMM, monsa, S-1-5-21-854866677-1834114146-3748758031-1001, LocalHost (con LRPC), No disponible, No disponible'.>
+Computer Name: CamiloMM
+Record Number: 23543
+String Inserts: específico de la aplicación | Local | Activación | {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54} | {15C20B67-12E7-4BB6-92BB-7AFF07997402} | CamiloMM | monsa | S-1-5-21-854866677-1834114146-3748758031-1001 | LocalHost (con LRPC) | No disponible | No disponible
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 16
+Event ID (Completo): 16
+Source: Microsoft-Windows-Kernel-General
+Nivel: 4
+Time Generated: 2025-01-12 19:36:46
+Descripción: Descripción generada a partir de cadenas insertadas: 174, \??\C:\ProgramData\Packages\Microsoft.WidgetsPlatformRuntime_8wekyb3d8bbwe\S-1-5-21-854866677-1834114146-3748758031-1001\SystemAppData\Helium\Cache\86f3ec113b914ae0_COM15.dat, 1, 1
+Computer Name: CamiloMM
+Record Number: 23542
+String Inserts: 174 | \??\C:\ProgramData\Packages\Microsoft.WidgetsPlatformRuntime_8wekyb3d8bbwe\S-1-5-21-854866677-1834114146-3748758031-1001\SystemAppData\Helium\Cache\86f3ec113b914ae0_COM15.dat | 1 | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7021
+Event ID (Completo): 1073748845
+Source: Netwtw12
+Nivel: 4
+Time Generated: 2025-01-12 19:36:44
+Descripción: 7021 - Connection telemetry fields and analysis usage
+Computer Name: CamiloMM
+Record Number: 23541
+String Inserts: 
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 10016
+Event ID (Completo): 10016
+Source: DCOM
+Nivel: 2
+Time Generated: 2025-01-12 19:36:43
+Descripción: <The description for Event ID ( 10016 ) in Source ( 'DCOM' ) could not be found. It contains the following insertion string(s):'específico de la aplicación, Local, Activación, {6B3B8D23-FA8D-40B9-8DBD-B950333E2C52}, {4839DDB7-58C2-48F5-8283-E1D1807D0D7D}, NT AUTHORITY, LOCAL SERVICE, S-1-5-19, LocalHost (con LRPC), No disponible, No disponible'.>
+Computer Name: CamiloMM
+Record Number: 23540
+String Inserts: específico de la aplicación | Local | Activación | {6B3B8D23-FA8D-40B9-8DBD-B950333E2C52} | {4839DDB7-58C2-48F5-8283-E1D1807D0D7D} | NT AUTHORITY | LOCAL SERVICE | S-1-5-19 | LocalHost (con LRPC) | No disponible | No disponible
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 10016
+Event ID (Completo): 10016
+Source: DCOM
+Nivel: 2
+Time Generated: 2025-01-12 19:36:43
+Descripción: <The description for Event ID ( 10016 ) in Source ( 'DCOM' ) could not be found. It contains the following insertion string(s):'específico de la aplicación, Local, Activación, {6B3B8D23-FA8D-40B9-8DBD-B950333E2C52}, {4839DDB7-58C2-48F5-8283-E1D1807D0D7D}, NT AUTHORITY, LOCAL SERVICE, S-1-5-19, LocalHost (con LRPC), No disponible, No disponible'.>
+Computer Name: CamiloMM
+Record Number: 23539
+String Inserts: específico de la aplicación | Local | Activación | {6B3B8D23-FA8D-40B9-8DBD-B950333E2C52} | {4839DDB7-58C2-48F5-8283-E1D1807D0D7D} | NT AUTHORITY | LOCAL SERVICE | S-1-5-19 | LocalHost (con LRPC) | No disponible | No disponible
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 18
+Event ID (Completo): 1074069522
+Source: BTHUSB
+Nivel: 4
+Time Generated: 2025-01-12 19:36:43
+Descripción: Windows no puede almacenar códigos de autenticación de Bluetooth (claves de vínculo) en el adaptador local. Puede que los teclados Bluetooth no funcionen en el BIOS del sistema durante el inicio.
+Computer Name: CamiloMM
+Record Number: 23538
+String Inserts: 
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 1
+Event ID (Completo): 1
+Source: Microsoft-Windows-Power-Troubleshooter
+Nivel: 4
+Time Generated: 2025-01-12 19:36:43
+Descripción: El sistema estaba en un estado de baja energía y se reanudó.
+
+Hora de suspensión: 2025-01-12T22:19:50.8363032Z
+Hora de reactivación: 2025-01-13T00:36:42.0937045Z
+
+Origen de la reactivación: 0
+Computer Name: CamiloMM
+Record Number: 23537
+String Inserts: 2025-01-12T22:19:50.8363032Z | 2025-01-13T00:36:42.0937045Z | 1819 | 1592 | 1563 | 4607 | 3430 | 2494 | 455503 | 1979728141 | 6 | 5 | 0 | 0 |  | 0 | 0 | 0 |  |  | 4
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7001
+Event ID (Completo): 7001
+Source: Microsoft-Windows-Winlogon
+Nivel: 4
+Time Generated: 2025-01-12 19:36:43
+Descripción: Notificación de inicio de sesión de usuario para el Programa para la mejora de la experiencia del usuario
+Computer Name: CamiloMM
+Record Number: 23536
+String Inserts: 4 | S-1-5-21-854866677-1834114146-3748758031-1001
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 566
+Event ID (Completo): 566
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 19:36:42
+Descripción: Descripción generada a partir de cadenas insertadas: 40, 1, 22, 1, 355882, 52730, 52699, 52730, 52699, 24, 0, false, 1
+Computer Name: CamiloMM
+Record Number: 23535
+String Inserts: 40 | 1 | 22 | 1 | 355882 | 52730 | 52699 | 52730 | 52699 | 24 | 0 | false | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 566
+Event ID (Completo): 566
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 19:36:42
+Descripción: Descripción generada a partir de cadenas insertadas: 40, 20, 21, 3, 8211232064, 52730, 52699, 52730, 52699, 22, 1, false, 20
+Computer Name: CamiloMM
+Record Number: 23534
+String Inserts: 40 | 20 | 21 | 3 | 8211232064 | 52730 | 52699 | 52730 | 52699 | 22 | 1 | false | 20
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 32
+Event ID (Completo): 32
+Source: Microsoft-Windows-Kernel-Boot
+Nivel: 4
+Time Generated: 2025-01-12 19:36:42
+Descripción: Descripción generada a partir de cadenas insertadas: 0
+Computer Name: CamiloMM
+Record Number: 23533
+String Inserts: 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 18
+Event ID (Completo): 18
+Source: Microsoft-Windows-Kernel-Boot
+Nivel: 4
+Time Generated: 2025-01-12 19:36:42
+Descripción: Descripción generada a partir de cadenas insertadas: 1
+Computer Name: CamiloMM
+Record Number: 23532
+String Inserts: 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 247
+Event ID (Completo): 247
+Source: Microsoft-Windows-Kernel-Boot
+Nivel: 4
+Time Generated: 2025-01-12 19:36:42
+Descripción: Descripción generada a partir de cadenas insertadas: 0, 4
+Computer Name: CamiloMM
+Record Number: 23531
+String Inserts: 0 | 4
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 27
+Event ID (Completo): 27
+Source: Microsoft-Windows-Kernel-Boot
+Nivel: 4
+Time Generated: 2025-01-12 19:36:42
+Descripción: Descripción generada a partir de cadenas insertadas: 1, ?
+Computer Name: CamiloMM
+Record Number: 23530
+String Inserts: 1 | ?
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 25
+Event ID (Completo): 25
+Source: Microsoft-Windows-Kernel-Boot
+Nivel: 4
+Time Generated: 2025-01-12 19:36:42
+Descripción: Descripción generada a partir de cadenas insertadas: 1
+Computer Name: CamiloMM
+Record Number: 23529
+String Inserts: 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 30
+Event ID (Completo): 30
+Source: Microsoft-Windows-Kernel-Boot
+Nivel: 4
+Time Generated: 2025-01-12 19:36:42
+Descripción: Descripción generada a partir de cadenas insertadas: 40, 4483, 4594, 6208, 6219
+Computer Name: CamiloMM
+Record Number: 23528
+String Inserts: 40 | 4483 | 4594 | 6208 | 6219
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 1038
+Event ID (Completo): 1038
+Source: Microsoft-Windows-TPM-WMI
+Nivel: 4
+Time Generated: 2025-01-12 19:36:42
+Descripción: Las comprobaciones de estado de la atestación previa confirman que se espera que el dispositivo supere la atestación.
+ Consulte C:\WINDOWS\Logs\MeasuredBoot\0000000223-0000000000.json para obtener información detallada sobre las comprobaciones realizadas.
+Computer Name: CamiloMM
+Record Number: 23527
+String Inserts: C:\WINDOWS\Logs\MeasuredBoot\0000000223-0000000000.json
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 1041
+Event ID (Completo): 1041
+Source: Microsoft-Windows-TPM-WMI
+Nivel: 4
+Time Generated: 2025-01-12 19:36:42
+Descripción: Información detallada sobre la comprobación del estado de la atestación previa: {"Version":1,"HealthStatus":"Attestable","Required":[{"Field":"TpmPresent","Value":true,"DesiredValue":true},{"Field":"TpmMeetsMinimumVersion","Value":true,"DesiredValue":true},{"Field":"TpmIsResponsive","Value":true,"DesiredValue":true},{"Field":"EkCertIsAvailable","Value":true,"DesiredValue":true},{"Field":"TcgLogFound","Value":true,"DesiredValue":true}],"Expected":[{"Field":"PcrsMatchTcgLog","Value":true,"DesiredValue":true}],"Informational":[{"Field":"SecureBootEnabled","ValueFromComputer":true,"ValueFromTcgLog":true,"DesiredValue":true,"TcgValueIsVerifiable":true},{"Field":"VirtualSecureMemory","ValueFromComputer":false,"ValueFromTcgLog":false,"DesiredValue":true,"TcgValueIsVerifiable":true},{"Field":"SecureCorePCCompliant","ValueFromComputer":false,"ValueFromTcgLog":false,"DesiredValue":true,"TcgValueIsVerifiable":true}]}
+Computer Name: CamiloMM
+Record Number: 23526
+String Inserts: {"Version":1,"HealthStatus":"Attestable","Required":[{"Field":"TpmPresent","Value":true,"DesiredValue":true},{"Field":"TpmMeetsMinimumVersion","Value":true,"DesiredValue":true},{"Field":"TpmIsResponsive","Value":true,"DesiredValue":true},{"Field":"EkCertIsAvailable","Value":true,"DesiredValue":true},{"Field":"TcgLogFound","Value":true,"DesiredValue":true}],"Expected":[{"Field":"PcrsMatchTcgLog","Value":true,"DesiredValue":true}],"Informational":[{"Field":"SecureBootEnabled","ValueFromComputer":true,"ValueFromTcgLog":true,"DesiredValue":true,"TcgValueIsVerifiable":true},{"Field":"VirtualSecureMemory","ValueFromComputer":false,"ValueFromTcgLog":false,"DesiredValue":true,"TcgValueIsVerifiable":true},{"Field":"SecureCorePCCompliant","ValueFromComputer":false,"ValueFromTcgLog":false,"DesiredValue":true,"TcgValueIsVerifiable":true}]}
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 28
+Event ID (Completo): 28
+Source: Intel-SST-OED
+Nivel: 4
+Time Generated: 2025-01-12 19:36:41
+Descripción: Loaded DSP FW library: Libs\dsp_lib_whm_adl_release.bin, status = 0.
+Computer Name: CamiloMM
+Record Number: 23525
+String Inserts: Loaded DSP FW library | Libs\dsp_lib_whm_adl_release.bin | 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 28
+Event ID (Completo): 28
+Source: Intel-SST-OED
+Nivel: 4
+Time Generated: 2025-01-12 19:36:41
+Descripción: Loaded DSP FW library: Libs\dsp_lib_whm_adl_release.bin, status = 0.
+Computer Name: CamiloMM
+Record Number: 23524
+String Inserts: Loaded DSP FW library | Libs\dsp_lib_whm_adl_release.bin | 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 28
+Event ID (Completo): 28
+Source: Intel-SST-OED
+Nivel: 4
+Time Generated: 2025-01-12 19:36:41
+Descripción: Loaded DSP FW library: Libs\dsp_lib_intel_wov_adl_release.bin, status = 0.
+Computer Name: CamiloMM
+Record Number: 23523
+String Inserts: Loaded DSP FW library | Libs\dsp_lib_intel_wov_adl_release.bin | 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7025
+Event ID (Completo): 1073748849
+Source: Netwtw12
+Nivel: 4
+Time Generated: 2025-01-12 19:36:41
+Descripción: 7025 - Dump after return from D3 before cmd
+Computer Name: CamiloMM
+Record Number: 23522
+String Inserts: \Device\NDMP1 | Killer(R) Wi-Fi 6 AX1650i 160MHz Wireless Network Adapter (201NGW)
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 105
+Event ID (Completo): 105
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 19:36:40
+Descripción: Descripción generada a partir de cadenas insertadas: false, 52730, 52699
+Computer Name: CamiloMM
+Record Number: 23521
+String Inserts: false | 52730 | 52699
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 1
+Event ID (Completo): 1
+Source: Microsoft-Windows-Kernel-General
+Nivel: 4
+Time Generated: 2025-01-12 19:36:40
+Descripción: Posible detección de CVE: 2025-01-13T00:36:40.5000000Z
+Información adicional: 2025-01-12T22:19:53.9828049Z
+
+Este evento se genera cuando se detecta un intento de aprovechar una vulnerabilidad conocida (2025-01-13T00:36:40.5000000Z).
+Este evento lo genera un proceso de modo de usuario.
+Computer Name: CamiloMM
+Record Number: 23520
+String Inserts: 2025-01-13T00:36:40.5000000Z | 2025-01-12T22:19:53.9828049Z | 8206517 | 2 |  | 4 | 2025-01-12T19:36:40.5000000Z | 300 | false | false
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 107
+Event ID (Completo): 107
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 17:19:53
+Descripción: Descripción generada a partir de cadenas insertadas: 6, 5, 5, 1601-01-01T00:00:00.0000000Z, 1601-01-01T00:00:00.0000000Z, 0, 0
+Computer Name: CamiloMM
+Record Number: 23519
+String Inserts: 6 | 5 | 5 | 1601-01-01T00:00:00.0000000Z | 1601-01-01T00:00:00.0000000Z | 0 | 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 42
+Event ID (Completo): 42
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 17:19:52
+Descripción: Descripción generada a partir de cadenas insertadas: 6, 5, 4, 0, 3
+Computer Name: CamiloMM
+Record Number: 23518
+String Inserts: 6 | 5 | 4 | 0 | 3
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 40
+Event ID (Completo): 40
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 17:19:51
+Descripción: Descripción generada a partir de cadenas insertadas: 12, \Driver\ACPI, 0,
+Computer Name: CamiloMM
+Record Number: 23517
+String Inserts: 12 | \Driver\ACPI | 0 | 
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 40
+Event ID (Completo): 40
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 17:19:51
+Descripción: Descripción generada a partir de cadenas insertadas: 12, \Driver\ACPI, 0,
+Computer Name: CamiloMM
+Record Number: 23516
+String Inserts: 12 | \Driver\ACPI | 0 | 
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 40
+Event ID (Completo): 40
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 17:19:51
+Descripción: Descripción generada a partir de cadenas insertadas: 12, \Driver\ACPI, 0,
+Computer Name: CamiloMM
+Record Number: 23515
+String Inserts: 12 | \Driver\ACPI | 0 | 
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 40
+Event ID (Completo): 40
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 17:19:51
+Descripción: Descripción generada a partir de cadenas insertadas: 12, \Driver\ACPI, 0,
+Computer Name: CamiloMM
+Record Number: 23514
+String Inserts: 12 | \Driver\ACPI | 0 | 
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 566
+Event ID (Completo): 566
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 17:19:50
+Descripción: Descripción generada a partir de cadenas insertadas: 40, 1, 20, 0, 11416228557, 54870, 55717, 52730, 52699, 21, 3, true, 1
+Computer Name: CamiloMM
+Record Number: 23513
+String Inserts: 40 | 1 | 20 | 0 | 11416228557 | 54870 | 55717 | 52730 | 52699 | 21 | 3 | true | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 187
+Event ID (Completo): 187
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 17:19:50
+Descripción: Descripción generada a partir de cadenas insertadas: 53, \Device\HarddiskVolume3\Windows\System32\winlogon.exe, 3, 2
+Computer Name: CamiloMM
+Record Number: 23512
+String Inserts: 53 | \Device\HarddiskVolume3\Windows\System32\winlogon.exe | 3 | 2
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 267
+Event ID (Completo): 1073742091
+Source: Win32k
+Nivel: 4
+Time Generated: 2025-01-12 17:19:50
+Descripción: La comprobación de control de calidad de hardware táctil se realizó correctamente.
+Computer Name: CamiloMM
+Record Number: 23511
+String Inserts: 
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7002
+Event ID (Completo): 7002
+Source: Microsoft-Windows-Winlogon
+Nivel: 4
+Time Generated: 2025-01-12 17:19:50
+Descripción: Notificación de cierre de sesión de usuario para el Programa para la mejora de la experiencia del usuario
+Computer Name: CamiloMM
+Record Number: 23510
+String Inserts: 3 | S-1-5-21-854866677-1834114146-3748758031-1001
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 2
+Event ID (Completo): 2
+Source: Microsoft-Windows-IsolatedUserMode
+Nivel: 4
+Time Generated: 2025-01-12 17:19:48
+Descripción: Secure Trustlet Id 0 and Pid 0 stopped with status 0.
+Computer Name: CamiloMM
+Record Number: 23509
+String Inserts: 0 | 0 | 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 16
+Event ID (Completo): 16
+Source: Microsoft-Windows-Kernel-General
+Nivel: 4
+Time Generated: 2025-01-12 17:00:32
+Descripción: Descripción generada a partir de cadenas insertadas: 105, \??\C:\Users\monsa\AppData\Local\Packages\Microsoft.WindowsCalculator_8wekyb3d8bbwe\Settings\settings.dat, 2, 1
+Computer Name: CamiloMM
+Record Number: 23508
+String Inserts: 105 | \??\C:\Users\monsa\AppData\Local\Packages\Microsoft.WindowsCalculator_8wekyb3d8bbwe\Settings\settings.dat | 2 | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 158
+Event ID (Completo): 158
+Source: Microsoft-Windows-Time-Service
+Nivel: 4
+Time Generated: 2025-01-12 15:57:50
+Descripción: El proveedor de hora 'VMICTimeProvider' ha indicado que el hardware y el entorno operativo actuales no son compatibles y se ha detenido. Este es un comportamiento esperado para VMICTimeProvider en entornos que no son invitados de HyperV. Este también podría ser el comportamiento esperado de este proveedor en el entorno operativo actual.
+Computer Name: CamiloMM
+Record Number: 23507
+String Inserts: VMICTimeProvider
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 158
+Event ID (Completo): 158
+Source: Microsoft-Windows-Time-Service
+Nivel: 4
+Time Generated: 2025-01-12 15:40:46
+Descripción: El proveedor de hora 'VMICTimeProvider' ha indicado que el hardware y el entorno operativo actuales no son compatibles y se ha detenido. Este es un comportamiento esperado para VMICTimeProvider en entornos que no son invitados de HyperV. Este también podría ser el comportamiento esperado de este proveedor en el entorno operativo actual.
+Computer Name: CamiloMM
+Record Number: 23506
+String Inserts: VMICTimeProvider
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7040
+Event ID (Completo): 1073748864
+Source: Service Control Manager
+Nivel: 4
+Time Generated: 2025-01-12 15:36:27
+Descripción: El tipo de inicio del servicio Servicio de transferencia inteligente en segundo plano (BITS) se cambió de inicio por solicitud a inicio automático.
+Computer Name: CamiloMM
+Record Number: 23505
+String Inserts: Servicio de transferencia inteligente en segundo plano (BITS) | inicio por solicitud | inicio automático | BITS
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 5
+Event ID (Completo): 5
+Source: Microsoft-Windows-IsolatedUserMode
+Nivel: 4
+Time Generated: 2025-01-12 15:35:27
+Descripción: Secure Trustlet NULL Id 0 and Pid 0 started with status 0.
+Computer Name: CamiloMM
+Record Number: 23504
+String Inserts: 0 | 0 | 0 | NULL
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 2
+Event ID (Completo): 2
+Source: Microsoft-Windows-IsolatedUserMode
+Nivel: 4
+Time Generated: 2025-01-12 15:35:27
+Descripción: Secure Trustlet Id 0 and Pid 0 stopped with status 0.
+Computer Name: CamiloMM
+Record Number: 23503
+String Inserts: 0 | 0 | 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 17
+Event ID (Completo): 17
+Source: TPM
+Nivel: 4
+Time Generated: 2025-01-12 15:35:18
+Descripción: El hardware del Módulo de plataforma segura (TPM) no pudo ejecutar un comando de TPM.
+Computer Name: CamiloMM
+Record Number: 23502
+String Inserts: 0x1e | 1497 | 350 | 2446
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 158
+Event ID (Completo): 158
+Source: Microsoft-Windows-Time-Service
+Nivel: 4
+Time Generated: 2025-01-12 15:23:42
+Descripción: El proveedor de hora 'VMICTimeProvider' ha indicado que el hardware y el entorno operativo actuales no son compatibles y se ha detenido. Este es un comportamiento esperado para VMICTimeProvider en entornos que no son invitados de HyperV. Este también podría ser el comportamiento esperado de este proveedor en el entorno operativo actual.
+Computer Name: CamiloMM
+Record Number: 23501
+String Inserts: VMICTimeProvider
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 158
+Event ID (Completo): 158
+Source: Microsoft-Windows-Time-Service
+Nivel: 4
+Time Generated: 2025-01-12 15:06:38
+Descripción: El proveedor de hora 'VMICTimeProvider' ha indicado que el hardware y el entorno operativo actuales no son compatibles y se ha detenido. Este es un comportamiento esperado para VMICTimeProvider en entornos que no son invitados de HyperV. Este también podría ser el comportamiento esperado de este proveedor en el entorno operativo actual.
+Computer Name: CamiloMM
+Record Number: 23500
+String Inserts: VMICTimeProvider
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 10016
+Event ID (Completo): 10016
+Source: DCOM
+Nivel: 2
+Time Generated: 2025-01-12 14:57:18
+Descripción: <The description for Event ID ( 10016 ) in Source ( 'DCOM' ) could not be found. It contains the following insertion string(s):'específico de la aplicación, Local, Activación, {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54}, {15C20B67-12E7-4BB6-92BB-7AFF07997402}, CamiloMM, monsa, S-1-5-21-854866677-1834114146-3748758031-1001, LocalHost (con LRPC), No disponible, No disponible'.>
+Computer Name: CamiloMM
+Record Number: 23499
+String Inserts: específico de la aplicación | Local | Activación | {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54} | {15C20B67-12E7-4BB6-92BB-7AFF07997402} | CamiloMM | monsa | S-1-5-21-854866677-1834114146-3748758031-1001 | LocalHost (con LRPC) | No disponible | No disponible
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7040
+Event ID (Completo): 1073748864
+Source: Service Control Manager
+Nivel: 4
+Time Generated: 2025-01-12 14:51:57
+Descripción: El tipo de inicio del servicio Servicio de transferencia inteligente en segundo plano (BITS) se cambió de inicio automático a inicio por solicitud.
+Computer Name: CamiloMM
+Record Number: 23498
+String Inserts: Servicio de transferencia inteligente en segundo plano (BITS) | inicio automático | inicio por solicitud | BITS
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 11
+Event ID (Completo): 11
+Source: Microsoft-Windows-Kernel-General
+Nivel: 4
+Time Generated: 2025-01-12 14:51:20
+Descripción: Descripción generada a partir de cadenas insertadas: 79, \??\GLOBALROOT\Device\HarddiskVolumeShadowCopy5\WINDOWS\System32\config\DRIVERS, {a5098cf2-cfd3-11ef-9a31-a4f933a9956f}, {a5098cf1-cfd3-11ef-9a31-a4f933a9956f}, 0xc00000a2, 7
+Computer Name: CamiloMM
+Record Number: 23497
+String Inserts: 79 | \??\GLOBALROOT\Device\HarddiskVolumeShadowCopy5\WINDOWS\System32\config\DRIVERS | {a5098cf2-cfd3-11ef-9a31-a4f933a9956f} | {a5098cf1-cfd3-11ef-9a31-a4f933a9956f} | 0xc00000a2 | 7
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 11
+Event ID (Completo): 11
+Source: Microsoft-Windows-Kernel-General
+Nivel: 4
+Time Generated: 2025-01-12 14:51:19
+Descripción: Descripción generada a partir de cadenas insertadas: 78, \??\GLOBALROOT\Device\HarddiskVolumeShadowCopy5\WINDOWS\System32\config\SYSTEM, {a5098cef-cfd3-11ef-9a31-a4f933a9956f}, {a5098cee-cfd3-11ef-9a31-a4f933a9956f}, 0xc00000a2, 7
+Computer Name: CamiloMM
+Record Number: 23496
+String Inserts: 78 | \??\GLOBALROOT\Device\HarddiskVolumeShadowCopy5\WINDOWS\System32\config\SYSTEM | {a5098cef-cfd3-11ef-9a31-a4f933a9956f} | {a5098cee-cfd3-11ef-9a31-a4f933a9956f} | 0xc00000a2 | 7
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7040
+Event ID (Completo): 1073748864
+Source: Service Control Manager
+Nivel: 4
+Time Generated: 2025-01-12 14:49:53
+Descripción: El tipo de inicio del servicio Servicio de transferencia inteligente en segundo plano (BITS) se cambió de inicio por solicitud a inicio automático.
+Computer Name: CamiloMM
+Record Number: 23495
+String Inserts: Servicio de transferencia inteligente en segundo plano (BITS) | inicio por solicitud | inicio automático | BITS
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 37
+Event ID (Completo): 37
+Source: Microsoft-Windows-Time-Service
+Nivel: 4
+Time Generated: 2025-01-12 14:49:18
+Descripción: El proveedor de hora NtpClient está recibiendo datos de hora  válidos desde time.windows.com,0x9 (ntp.m|0x9|0.0.0.0:123->40.119.6.228:123).
+Computer Name: CamiloMM
+Record Number: 23494
+String Inserts: time.windows.com,0x9 (ntp.m|0x9|0.0.0.0:123->40.119.6.228:123)
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 158
+Event ID (Completo): 158
+Source: Microsoft-Windows-Time-Service
+Nivel: 4
+Time Generated: 2025-01-12 14:49:18
+Descripción: El proveedor de hora 'VMICTimeProvider' ha indicado que el hardware y el entorno operativo actuales no son compatibles y se ha detenido. Este es un comportamiento esperado para VMICTimeProvider en entornos que no son invitados de HyperV. Este también podría ser el comportamiento esperado de este proveedor en el entorno operativo actual.
+Computer Name: CamiloMM
+Record Number: 23493
+String Inserts: VMICTimeProvider
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 12
+Event ID (Completo): 12
+Source: Microsoft-Windows-UserModePowerService
+Nivel: 4
+Time Generated: 2025-01-12 14:45:16
+Descripción: El proceso C:\Program Files\Acer\Quick Access Service\QAAdminAgent.exe (identificador de proceso:14728) restableció el esquema de directivas de {0d146388-1f05-4da1-81ad-20c9fcdd6e60} a {0d146388-1f05-4da1-81ad-20c9fcdd6e60}
+Computer Name: CamiloMM
+Record Number: 23492
+String Inserts: C:\Program Files\Acer\Quick Access Service\QAAdminAgent.exe | 14728 | {0d146388-1f05-4da1-81ad-20c9fcdd6e60} | {0d146388-1f05-4da1-81ad-20c9fcdd6e60}
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 105
+Event ID (Completo): 105
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 14:45:16
+Descripción: Descripción generada a partir de cadenas insertadas: true, 37145, 55871
+Computer Name: CamiloMM
+Record Number: 23491
+String Inserts: true | 37145 | 55871
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7040
+Event ID (Completo): 1073748864
+Source: Service Control Manager
+Nivel: 4
+Time Generated: 2025-01-12 14:42:30
+Descripción: El tipo de inicio del servicio Servicio de transferencia inteligente en segundo plano (BITS) se cambió de inicio automático a inicio por solicitud.
+Computer Name: CamiloMM
+Record Number: 23490
+String Inserts: Servicio de transferencia inteligente en segundo plano (BITS) | inicio automático | inicio por solicitud | BITS
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7040
+Event ID (Completo): 1073748864
+Source: Service Control Manager
+Nivel: 4
+Time Generated: 2025-01-12 14:40:24
+Descripción: El tipo de inicio del servicio Servicio de transferencia inteligente en segundo plano (BITS) se cambió de inicio por solicitud a inicio automático.
+Computer Name: CamiloMM
+Record Number: 23489
+String Inserts: Servicio de transferencia inteligente en segundo plano (BITS) | inicio por solicitud | inicio automático | BITS
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 12
+Event ID (Completo): 12
+Source: Microsoft-Windows-UserModePowerService
+Nivel: 4
+Time Generated: 2025-01-12 14:39:51
+Descripción: El proceso C:\Program Files\Acer\Quick Access Service\QAAdminAgent.exe (identificador de proceso:14728) restableció el esquema de directivas de {0d146388-1f05-4da1-81ad-20c9fcdd6e60} a {0d146388-1f05-4da1-81ad-20c9fcdd6e60}
+Computer Name: CamiloMM
+Record Number: 23488
+String Inserts: C:\Program Files\Acer\Quick Access Service\QAAdminAgent.exe | 14728 | {0d146388-1f05-4da1-81ad-20c9fcdd6e60} | {0d146388-1f05-4da1-81ad-20c9fcdd6e60}
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 19
+Event ID (Completo): 19
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:37:22
+Descripción: Instalación correcta: Windows instaló correctamente la siguiente actualización: 9NCBCSZSJRSB-SpotifyAB.SpotifyMusic
+Computer Name: CamiloMM
+Record Number: 23487
+String Inserts: 9NCBCSZSJRSB-SpotifyAB.SpotifyMusic | {a41c6da0-8ff6-4f6f-beaa-75aafc56fbcc} | 1 | {855e8a7c-ecb4-4ca3-b045-1dfa50104289}
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 16
+Event ID (Completo): 16
+Source: Microsoft-Windows-Kernel-General
+Nivel: 4
+Time Generated: 2025-01-12 14:37:20
+Descripción: Descripción generada a partir de cadenas insertadas: 100, \??\C:\Users\monsa\AppData\Local\Packages\SpotifyAB.SpotifyMusic_zpdnekdrzrea0\Settings\settings.dat, 1, 1
+Computer Name: CamiloMM
+Record Number: 23486
+String Inserts: 100 | \??\C:\Users\monsa\AppData\Local\Packages\SpotifyAB.SpotifyMusic_zpdnekdrzrea0\Settings\settings.dat | 1 | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 98
+Event ID (Completo): 98
+Source: Microsoft-Windows-Ntfs
+Nivel: 4
+Time Generated: 2025-01-12 14:37:19
+Descripción: Descripción generada a partir de cadenas insertadas: Acer, \Device\HarddiskVolumeShadowCopy5, 0
+Computer Name: CamiloMM
+Record Number: 23485
+String Inserts: Acer | \Device\HarddiskVolumeShadowCopy5 | 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 43
+Event ID (Completo): 43
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:37:19
+Descripción: Instalación iniciada: Windows comenzó a instalar la actualización siguiente: 9NCBCSZSJRSB-SpotifyAB.SpotifyMusic
+Computer Name: CamiloMM
+Record Number: 23484
+String Inserts: 9NCBCSZSJRSB-SpotifyAB.SpotifyMusic | {a41c6da0-8ff6-4f6f-beaa-75aafc56fbcc} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 33
+Event ID (Completo): 1074135073
+Source: volsnap
+Nivel: 4
+Time Generated: 2025-01-12 14:37:19
+Descripción: Se eliminó la instantánea más antigua del volumen C: para que el uso de espacio en disco del volumen de instantáneas C: no sobrepasara el límite definido por el usuario.
+Computer Name: CamiloMM
+Record Number: 23483
+String Inserts: \Device\HarddiskVolumeShadowCopy1 | C: | 00000000 | 178 | 0x0001 | 6404
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 16
+Event ID (Completo): 16
+Source: Microsoft-Windows-Kernel-General
+Nivel: 4
+Time Generated: 2025-01-12 14:36:48
+Descripción: Descripción generada a partir de cadenas insertadas: 133, \??\C:\ProgramData\Microsoft\Windows\AppRepository\Packages\SpotifyAB.SpotifyMusic_1.253.440.0_x64__zpdnekdrzrea0\ActivationStore.dat, 0, 0
+Computer Name: CamiloMM
+Record Number: 23482
+String Inserts: 133 | \??\C:\ProgramData\Microsoft\Windows\AppRepository\Packages\SpotifyAB.SpotifyMusic_1.253.440.0_x64__zpdnekdrzrea0\ActivationStore.dat | 0 | 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:36:42
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23481
+String Inserts: 9NCBCSZSJRSB-SpotifyAB.SpotifyMusic | {a41c6da0-8ff6-4f6f-beaa-75aafc56fbcc} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:36:42
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23480
+String Inserts: 9NBLGGH3FRZM-Microsoft.VCLibs.140.00 | {7c4b0956-b3f1-40ac-a633-668abc5d6af2} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:36:37
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23479
+String Inserts: 9NBLGGH10PG8-MICROSOFT.PEOPLE | {6fe32951-178d-43c0-8ce6-43dce9051c58} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:36:37
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23478
+String Inserts: 9NBLGGH537C2-Microsoft.XboxGameOverlay | {075a4121-db52-4709-91f0-1a3dbd9beb30} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:36:37
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23477
+String Inserts: 9NCBCSZSJRSB-SpotifyAB.SpotifyMusic | {a41c6da0-8ff6-4f6f-beaa-75aafc56fbcc} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:36:37
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23476
+String Inserts: 9NBLGGH3FRZM-Microsoft.VCLibs.140.00 | {7c4b0956-b3f1-40ac-a633-668abc5d6af2} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:36:37
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23475
+String Inserts: 9NCBCSZSJRSB-SpotifyAB.SpotifyMusic | {a41c6da0-8ff6-4f6f-beaa-75aafc56fbcc} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:36:37
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23474
+String Inserts: 9NCBCSZSJRSB-SpotifyAB.SpotifyMusic | {a41c6da0-8ff6-4f6f-beaa-75aafc56fbcc} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:27:34
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23473
+String Inserts: 9NBLGGH4RV3K-Microsoft.VCLibs.140.00.UWPDesktop | {fcdd3b59-f41c-4595-b36b-245bacb749e8} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:27:34
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23472
+String Inserts: 9NXVKMG8GMTZ-C27EB4BA.DropboxOEM | {2b091850-45e2-4c4f-b880-0c28be432cbd} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:27:29
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23471
+String Inserts: 9NBLGGH4RV3K-Microsoft.VCLibs.140.00.UWPDesktop | {fcdd3b59-f41c-4595-b36b-245bacb749e8} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:27:29
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23470
+String Inserts: 9NXVKMG8GMTZ-C27EB4BA.DropboxOEM | {2b091850-45e2-4c4f-b880-0c28be432cbd} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:27:23
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23469
+String Inserts: 9NXVKMG8GMTZ-C27EB4BA.DropboxOEM | {2b091850-45e2-4c4f-b880-0c28be432cbd} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:27:23
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23468
+String Inserts: 9NKNC0LD5NN6-Microsoft.Xbox.TCUI | {f97927ad-01c5-4063-87b2-4638508ff2f5} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:27:23
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23467
+String Inserts: 9NBLGGH5R558-Microsoft.Todos | {19f5b1cc-434b-4b65-ab42-66bd3b9a70a5} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:27:23
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23466
+String Inserts: 9NKNC0LD5NN6-Microsoft.Xbox.TCUI | {f97927ad-01c5-4063-87b2-4638508ff2f5} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:27:22
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23465
+String Inserts: 9NBLGGH3FRZM-Microsoft.VCLibs.140.00 | {7c4b0956-b3f1-40ac-a633-668abc5d6af2} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:27:22
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23464
+String Inserts: 9NXVKMG8GMTZ-C27EB4BA.DropboxOEM | {2b091850-45e2-4c4f-b880-0c28be432cbd} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:27:22
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23463
+String Inserts: 9NBLGGH5R558-Microsoft.Todos | {19f5b1cc-434b-4b65-ab42-66bd3b9a70a5} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:27:22
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23462
+String Inserts: 9NBLGGH4RV3K-Microsoft.VCLibs.140.00.UWPDesktop | {fcdd3b59-f41c-4595-b36b-245bacb749e8} | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 19
+Event ID (Completo): 19
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:25:36
+Descripción: Instalación correcta: Windows instaló correctamente la siguiente actualización: Actualización de inteligencia de seguridad para Microsoft Defender Antivirus - KB2267602 (versión 1.421.1323.0) - Canal actual (ampliado)
+Computer Name: CamiloMM
+Record Number: 23461
+String Inserts: Actualización de inteligencia de seguridad para Microsoft Defender Antivirus - KB2267602 (versión 1.421.1323.0) - Canal actual (ampliado) | {c7d6bf0b-8686-4850-a78a-4a501efece1b} | 200 | {9482f4b4-e343-43b6-b170-9a65bc822c77}
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7045
+Event ID (Completo): 1073748869
+Source: Service Control Manager
+Nivel: 4
+Time Generated: 2025-01-12 14:25:36
+Descripción: Se instaló un servicio en el sistema.
+
+Nombre del servicio:  MpKslf53c6e3f
+Nombre del archivo del servicio:  C:\ProgramData\Microsoft\Windows Defender\Definition Updates\{7132D6CC-8DBC-4C54-9D62-0DF05CFE9C9D}\MpKslDrv.sys
+Tipo de servicio:  controlador de modo kernel
+Tipo de inicio de servicio:  inicio por solicitud
+Cuenta de servicio:
+Computer Name: CamiloMM
+Record Number: 23460
+String Inserts: MpKslf53c6e3f | C:\ProgramData\Microsoft\Windows Defender\Definition Updates\{7132D6CC-8DBC-4C54-9D62-0DF05CFE9C9D}\MpKslDrv.sys | controlador de modo kernel | inicio por solicitud | 
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 43
+Event ID (Completo): 43
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:25:12
+Descripción: Instalación iniciada: Windows comenzó a instalar la actualización siguiente: Actualización de inteligencia de seguridad para Microsoft Defender Antivirus - KB2267602 (versión 1.421.1323.0) - Canal actual (ampliado)
+Computer Name: CamiloMM
+Record Number: 23459
+String Inserts: Actualización de inteligencia de seguridad para Microsoft Defender Antivirus - KB2267602 (versión 1.421.1323.0) - Canal actual (ampliado) | {c7d6bf0b-8686-4850-a78a-4a501efece1b} | 200
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 44
+Event ID (Completo): 44
+Source: Microsoft-Windows-WindowsUpdateClient
+Nivel: 4
+Time Generated: 2025-01-12 14:25:11
+Descripción: Windows Update comenzó a descargar una actualización.
+Computer Name: CamiloMM
+Record Number: 23458
+String Inserts: Actualización de inteligencia de seguridad para Microsoft Defender Antivirus - KB2267602 (versión 1.421.1323.0) - Canal actual (ampliado) | {c7d6bf0b-8686-4850-a78a-4a501efece1b} | 200
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7040
+Event ID (Completo): 1073748864
+Source: Service Control Manager
+Nivel: 4
+Time Generated: 2025-01-12 14:14:52
+Descripción: El tipo de inicio del servicio Servicio de transferencia inteligente en segundo plano (BITS) se cambió de inicio automático a inicio por solicitud.
+Computer Name: CamiloMM
+Record Number: 23457
+String Inserts: Servicio de transferencia inteligente en segundo plano (BITS) | inicio automático | inicio por solicitud | BITS
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 10016
+Event ID (Completo): 10016
+Source: DCOM
+Nivel: 2
+Time Generated: 2025-01-12 14:11:24
+Descripción: <The description for Event ID ( 10016 ) in Source ( 'DCOM' ) could not be found. It contains the following insertion string(s):'específico de la aplicación, Local, Activación, {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54}, {15C20B67-12E7-4BB6-92BB-7AFF07997402}, CamiloMM, monsa, S-1-5-21-854866677-1834114146-3748758031-1001, LocalHost (con LRPC), No disponible, No disponible'.>
+Computer Name: CamiloMM
+Record Number: 23456
+String Inserts: específico de la aplicación | Local | Activación | {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54} | {15C20B67-12E7-4BB6-92BB-7AFF07997402} | CamiloMM | monsa | S-1-5-21-854866677-1834114146-3748758031-1001 | LocalHost (con LRPC) | No disponible | No disponible
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 5
+Event ID (Completo): 5
+Source: Microsoft-Windows-IsolatedUserMode
+Nivel: 4
+Time Generated: 2025-01-12 14:11:09
+Descripción: Secure Trustlet NULL Id 0 and Pid 0 started with status 0.
+Computer Name: CamiloMM
+Record Number: 23455
+String Inserts: 0 | 0 | 0 | NULL
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 10016
+Event ID (Completo): 10016
+Source: DCOM
+Nivel: 2
+Time Generated: 2025-01-12 14:10:34
+Descripción: <The description for Event ID ( 10016 ) in Source ( 'DCOM' ) could not be found. It contains the following insertion string(s):'específico de la aplicación, Local, Activación, {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54}, {15C20B67-12E7-4BB6-92BB-7AFF07997402}, CamiloMM, monsa, S-1-5-21-854866677-1834114146-3748758031-1001, LocalHost (con LRPC), No disponible, No disponible'.>
+Computer Name: CamiloMM
+Record Number: 23454
+String Inserts: específico de la aplicación | Local | Activación | {2593F8B9-4EAF-457C-B68A-50F6B8EA6B54} | {15C20B67-12E7-4BB6-92BB-7AFF07997402} | CamiloMM | monsa | S-1-5-21-854866677-1834114146-3748758031-1001 | LocalHost (con LRPC) | No disponible | No disponible
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7040
+Event ID (Completo): 1073748864
+Source: Service Control Manager
+Nivel: 4
+Time Generated: 2025-01-12 14:10:17
+Descripción: El tipo de inicio del servicio Servicio de transferencia inteligente en segundo plano (BITS) se cambió de inicio por solicitud a inicio automático.
+Computer Name: CamiloMM
+Record Number: 23453
+String Inserts: Servicio de transferencia inteligente en segundo plano (BITS) | inicio por solicitud | inicio automático | BITS
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 1014
+Event ID (Completo): 1014
+Source: Microsoft-Windows-DNS-Client
+Nivel: 2
+Time Generated: 2025-01-12 14:09:43
+Descripción: La resolución de nombres para el nombre www.facebook.com agotó el tiempo de espera después de que ninguno de los servidores DNS configurados respondiera. PID de cliente 8488.
+Computer Name: CamiloMM
+Record Number: 23452
+String Inserts: www.facebook.com | 128 | 02000000C815C80A000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 | 8488
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7021
+Event ID (Completo): 1073748845
+Source: Netwtw12
+Nivel: 4
+Time Generated: 2025-01-12 14:09:36
+Descripción: 7021 - Connection telemetry fields and analysis usage
+Computer Name: CamiloMM
+Record Number: 23451
+String Inserts: 
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 10016
+Event ID (Completo): 10016
+Source: DCOM
+Nivel: 2
+Time Generated: 2025-01-12 14:09:35
+Descripción: <The description for Event ID ( 10016 ) in Source ( 'DCOM' ) could not be found. It contains the following insertion string(s):'específico de la aplicación, Local, Activación, {6B3B8D23-FA8D-40B9-8DBD-B950333E2C52}, {4839DDB7-58C2-48F5-8283-E1D1807D0D7D}, NT AUTHORITY, LOCAL SERVICE, S-1-5-19, LocalHost (con LRPC), No disponible, No disponible'.>
+Computer Name: CamiloMM
+Record Number: 23450
+String Inserts: específico de la aplicación | Local | Activación | {6B3B8D23-FA8D-40B9-8DBD-B950333E2C52} | {4839DDB7-58C2-48F5-8283-E1D1807D0D7D} | NT AUTHORITY | LOCAL SERVICE | S-1-5-19 | LocalHost (con LRPC) | No disponible | No disponible
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 10016
+Event ID (Completo): 10016
+Source: DCOM
+Nivel: 2
+Time Generated: 2025-01-12 14:09:35
+Descripción: <The description for Event ID ( 10016 ) in Source ( 'DCOM' ) could not be found. It contains the following insertion string(s):'específico de la aplicación, Local, Activación, {6B3B8D23-FA8D-40B9-8DBD-B950333E2C52}, {4839DDB7-58C2-48F5-8283-E1D1807D0D7D}, NT AUTHORITY, LOCAL SERVICE, S-1-5-19, LocalHost (con LRPC), No disponible, No disponible'.>
+Computer Name: CamiloMM
+Record Number: 23449
+String Inserts: específico de la aplicación | Local | Activación | {6B3B8D23-FA8D-40B9-8DBD-B950333E2C52} | {4839DDB7-58C2-48F5-8283-E1D1807D0D7D} | NT AUTHORITY | LOCAL SERVICE | S-1-5-19 | LocalHost (con LRPC) | No disponible | No disponible
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 18
+Event ID (Completo): 1074069522
+Source: BTHUSB
+Nivel: 4
+Time Generated: 2025-01-12 14:09:35
+Descripción: Windows no puede almacenar códigos de autenticación de Bluetooth (claves de vínculo) en el adaptador local. Puede que los teclados Bluetooth no funcionen en el BIOS del sistema durante el inicio.
+Computer Name: CamiloMM
+Record Number: 23448
+String Inserts: 
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7001
+Event ID (Completo): 7001
+Source: Microsoft-Windows-Winlogon
+Nivel: 4
+Time Generated: 2025-01-12 14:09:35
+Descripción: Notificación de inicio de sesión de usuario para el Programa para la mejora de la experiencia del usuario
+Computer Name: CamiloMM
+Record Number: 23447
+String Inserts: 3 | S-1-5-21-854866677-1834114146-3748758031-1001
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 566
+Event ID (Completo): 566
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 14:09:34
+Descripción: Descripción generada a partir de cadenas insertadas: 40, 1, 18, 1, 346151, 54870, 55717, 54870, 55717, 20, 0, false, 1
+Computer Name: CamiloMM
+Record Number: 23446
+String Inserts: 40 | 1 | 18 | 1 | 346151 | 54870 | 55717 | 54870 | 55717 | 20 | 0 | false | 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 1
+Event ID (Completo): 1
+Source: Microsoft-Windows-Power-Troubleshooter
+Nivel: 4
+Time Generated: 2025-01-12 14:09:34
+Descripción: El sistema estaba en un estado de baja energía y se reanudó.
+
+Hora de suspensión: 2025-01-12T01:29:08.2951107Z
+Hora de reactivación: 2025-01-12T19:09:34.2853672Z
+
+Origen de la reactivación: 0
+Computer Name: CamiloMM
+Record Number: 23445
+String Inserts: 2025-01-12T01:29:08.2951107Z | 2025-01-12T19:09:34.2853672Z | 1589 | 1784 | 1759 | 4582 | 3493 | 2006 | 424929 | 1979728141 | 6 | 5 | 0 | 0 |  | 0 | 0 | 0 |  |  | 5
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 566
+Event ID (Completo): 566
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 14:09:34
+Descripción: Descripción generada a partir de cadenas insertadas: 40, 20, 17, 3, 63625966680, 55871, 55717, 54870, 55717, 18, 1, false, 20
+Computer Name: CamiloMM
+Record Number: 23444
+String Inserts: 40 | 20 | 17 | 3 | 63625966680 | 55871 | 55717 | 54870 | 55717 | 18 | 1 | false | 20
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 32
+Event ID (Completo): 32
+Source: Microsoft-Windows-Kernel-Boot
+Nivel: 4
+Time Generated: 2025-01-12 14:09:34
+Descripción: Descripción generada a partir de cadenas insertadas: 0
+Computer Name: CamiloMM
+Record Number: 23443
+String Inserts: 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 18
+Event ID (Completo): 18
+Source: Microsoft-Windows-Kernel-Boot
+Nivel: 4
+Time Generated: 2025-01-12 14:09:34
+Descripción: Descripción generada a partir de cadenas insertadas: 1
+Computer Name: CamiloMM
+Record Number: 23442
+String Inserts: 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 247
+Event ID (Completo): 247
+Source: Microsoft-Windows-Kernel-Boot
+Nivel: 4
+Time Generated: 2025-01-12 14:09:34
+Descripción: Descripción generada a partir de cadenas insertadas: 0, 4
+Computer Name: CamiloMM
+Record Number: 23441
+String Inserts: 0 | 4
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 27
+Event ID (Completo): 27
+Source: Microsoft-Windows-Kernel-Boot
+Nivel: 4
+Time Generated: 2025-01-12 14:09:34
+Descripción: Descripción generada a partir de cadenas insertadas: 1, ?
+Computer Name: CamiloMM
+Record Number: 23440
+String Inserts: 1 | ?
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 25
+Event ID (Completo): 25
+Source: Microsoft-Windows-Kernel-Boot
+Nivel: 4
+Time Generated: 2025-01-12 14:09:34
+Descripción: Descripción generada a partir de cadenas insertadas: 1
+Computer Name: CamiloMM
+Record Number: 23439
+String Inserts: 1
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 30
+Event ID (Completo): 30
+Source: Microsoft-Windows-Kernel-Boot
+Nivel: 4
+Time Generated: 2025-01-12 14:09:34
+Descripción: Descripción generada a partir de cadenas insertadas: 40, 4458, 4570, 6187, 6198
+Computer Name: CamiloMM
+Record Number: 23438
+String Inserts: 40 | 4458 | 4570 | 6187 | 6198
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 1038
+Event ID (Completo): 1038
+Source: Microsoft-Windows-TPM-WMI
+Nivel: 4
+Time Generated: 2025-01-12 14:09:33
+Descripción: Las comprobaciones de estado de la atestación previa confirman que se espera que el dispositivo supere la atestación.
+ Consulte C:\WINDOWS\Logs\MeasuredBoot\0000000223-0000000000.json para obtener información detallada sobre las comprobaciones realizadas.
+Computer Name: CamiloMM
+Record Number: 23437
+String Inserts: C:\WINDOWS\Logs\MeasuredBoot\0000000223-0000000000.json
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 1041
+Event ID (Completo): 1041
+Source: Microsoft-Windows-TPM-WMI
+Nivel: 4
+Time Generated: 2025-01-12 14:09:33
+Descripción: Información detallada sobre la comprobación del estado de la atestación previa: {"Version":1,"HealthStatus":"Attestable","Required":[{"Field":"TpmPresent","Value":true,"DesiredValue":true},{"Field":"TpmMeetsMinimumVersion","Value":true,"DesiredValue":true},{"Field":"TpmIsResponsive","Value":true,"DesiredValue":true},{"Field":"EkCertIsAvailable","Value":true,"DesiredValue":true},{"Field":"TcgLogFound","Value":true,"DesiredValue":true}],"Expected":[{"Field":"PcrsMatchTcgLog","Value":true,"DesiredValue":true}],"Informational":[{"Field":"SecureBootEnabled","ValueFromComputer":true,"ValueFromTcgLog":true,"DesiredValue":true,"TcgValueIsVerifiable":true},{"Field":"VirtualSecureMemory","ValueFromComputer":false,"ValueFromTcgLog":false,"DesiredValue":true,"TcgValueIsVerifiable":true},{"Field":"SecureCorePCCompliant","ValueFromComputer":false,"ValueFromTcgLog":false,"DesiredValue":true,"TcgValueIsVerifiable":true}]}
+Computer Name: CamiloMM
+Record Number: 23436
+String Inserts: {"Version":1,"HealthStatus":"Attestable","Required":[{"Field":"TpmPresent","Value":true,"DesiredValue":true},{"Field":"TpmMeetsMinimumVersion","Value":true,"DesiredValue":true},{"Field":"TpmIsResponsive","Value":true,"DesiredValue":true},{"Field":"EkCertIsAvailable","Value":true,"DesiredValue":true},{"Field":"TcgLogFound","Value":true,"DesiredValue":true}],"Expected":[{"Field":"PcrsMatchTcgLog","Value":true,"DesiredValue":true}],"Informational":[{"Field":"SecureBootEnabled","ValueFromComputer":true,"ValueFromTcgLog":true,"DesiredValue":true,"TcgValueIsVerifiable":true},{"Field":"VirtualSecureMemory","ValueFromComputer":false,"ValueFromTcgLog":false,"DesiredValue":true,"TcgValueIsVerifiable":true},{"Field":"SecureCorePCCompliant","ValueFromComputer":false,"ValueFromTcgLog":false,"DesiredValue":true,"TcgValueIsVerifiable":true}]}
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 28
+Event ID (Completo): 28
+Source: Intel-SST-OED
+Nivel: 4
+Time Generated: 2025-01-12 14:09:33
+Descripción: Loaded DSP FW library: Libs\dsp_lib_whm_adl_release.bin, status = 0.
+Computer Name: CamiloMM
+Record Number: 23435
+String Inserts: Loaded DSP FW library | Libs\dsp_lib_whm_adl_release.bin | 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 28
+Event ID (Completo): 28
+Source: Intel-SST-OED
+Nivel: 4
+Time Generated: 2025-01-12 14:09:33
+Descripción: Loaded DSP FW library: Libs\dsp_lib_whm_adl_release.bin, status = 0.
+Computer Name: CamiloMM
+Record Number: 23434
+String Inserts: Loaded DSP FW library | Libs\dsp_lib_whm_adl_release.bin | 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 28
+Event ID (Completo): 28
+Source: Intel-SST-OED
+Nivel: 4
+Time Generated: 2025-01-12 14:09:33
+Descripción: Loaded DSP FW library: Libs\dsp_lib_intel_wov_adl_release.bin, status = 0.
+Computer Name: CamiloMM
+Record Number: 23433
+String Inserts: Loaded DSP FW library | Libs\dsp_lib_intel_wov_adl_release.bin | 0
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 7025
+Event ID (Completo): 1073748849
+Source: Netwtw12
+Nivel: 4
+Time Generated: 2025-01-12 14:09:33
+Descripción: 7025 - Dump after return from D3 before cmd
+Computer Name: CamiloMM
+Record Number: 23432
+String Inserts: \Device\NDMP1 | Killer(R) Wi-Fi 6 AX1650i 160MHz Wireless Network Adapter (201NGW)
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 105
+Event ID (Completo): 105
+Source: Microsoft-Windows-Kernel-Power
+Nivel: 4
+Time Generated: 2025-01-12 14:09:33
+Descripción: Descripción generada a partir de cadenas insertadas: false, 55871, 55717
+Computer Name: CamiloMM
+Record Number: 23431
+String Inserts: false | 55871 | 55717
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 1
+Event ID (Completo): 1
+Source: Microsoft-Windows-Kernel-General
+Nivel: 4
+Time Generated: 2025-01-12 14:09:32
+Descripción: Posible detección de CVE: 2025-01-12T19:09:32.5000000Z
+Información adicional: 2025-01-12T01:29:12.1402191Z
+
+Este evento se genera cuando se detecta un intento de aprovechar una vulnerabilidad conocida (2025-01-12T19:09:32.5000000Z).
+Este evento lo genera un proceso de modo de usuario.
+Computer Name: CamiloMM
+Record Number: 23430
+String Inserts: 2025-01-12T19:09:32.5000000Z | 2025-01-12T01:29:12.1402191Z | 63620359 | 2 |  | 4 | 2025-01-12T14:09:32.5000000Z | 300 | false | false
+===========================
+
+========== EVENTO ==========
+Nombre del registro: System
+Event ID (Base): 6013
+Event ID (Completo): -2147477635
+Source: EventLog
+Nivel: 4
+Time Generated: 2025-01-12 14:09:32
+Descripción: El tiempo límite del sistema es de 139634 segundos.
+Computer Name: CamiloMM
+Record Number: 23428
+String Inserts:  |  |  |  | 139634 | 60 | 300 Hora est. Pacífico, Sudamérica
+===========================
+

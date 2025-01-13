@@ -2,6 +2,7 @@ import win32evtlog
 from office365.runtime.auth.authentication_context import AuthenticationContext
 from office365.sharepoint.client_context import ClientContext
 from datetime import datetime, timedelta
+import csv
 import time
 
 # Configuración de SharePoint
@@ -35,6 +36,9 @@ handle = win32evtlog.OpenEventLog(server, log_type)
 
 flags = win32evtlog.EVENTLOG_BACKWARDS_READ | win32evtlog.EVENTLOG_SEQUENTIAL_READ
 
+# Listado para guardar todos los eventos filtrados (para CSV)
+all_events = []
+
 # Diccionario para almacenar eventos únicos y sus conteos
 event_summary = {}
 
@@ -51,9 +55,20 @@ try:
                 event.TimeGenerated.month == input_month and
                 event.TimeGenerated.day == input_day
             ):
+                # Agregar evento al listado completo (para CSV)
+                all_events.append({
+                    'IdEvento': str(event.EventID),
+                    'Origen': str(event.SourceName),
+                    'Categoria': str(event.EventCategory),
+                    'Detalle': " | ".join(event.StringInserts) if event.StringInserts else "Sin detalles",
+                    'FechaGenerado': event.TimeGenerated.strftime('%Y-%m-%d %H:%M:%S'),
+                    'Nivel': str(event.EventType),
+                    'User': log_type,
+                })
+
                 # Crear una clave única para el evento
                 event_key = (event.EventID, event.SourceName)
-                
+
                 # Incrementar el conteo en el diccionario
                 if event_key in event_summary:
                     event_summary[event_key]['NoEventos'] += 1
@@ -105,6 +120,19 @@ for event_key, event_data in event_summary.items():
         time.sleep(0.5)  # Reducir throttling
     except Exception as e:
         print(f"Error al cargar el evento {event_data['IdEvento']}: {e}")
+
+# Crear archivo CSV con todos los eventos filtrados
+csv_file_name = f"Eventos_{yesterday.strftime('%Y-%m-%d')}.csv"
+csv_headers = ['IdEvento', 'Origen', 'Categoria', 'Detalle', 'FechaGenerado', 'Nivel', 'User']
+
+try:
+    with open(csv_file_name, mode='w', newline='', encoding='utf-8') as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=csv_headers)
+        writer.writeheader()
+        writer.writerows(all_events)
+    print(f"Archivo CSV creado: {csv_file_name}")
+except Exception as e:
+    print(f"Error al crear el archivo CSV: {e}")
 
 # Imprimir el total de eventos cargados al final
 print(f"Procesamiento completado. Total de eventos cargados: {event_count}")
