@@ -28,14 +28,15 @@ event_level_mapping = {
     5: "Depuración"
 }
 
-# Mapeo de códigos de operación comunes (si es aplicable)
+# Mapeo de códigos de operación comunes
 operation_code_mapping = {
     0: "Información",
-    1: "Inicio",
+    1: "Descargar",
     2: "Parada",
     3: "Éxito",
     4: "Error",
-    5: "Depuración"
+    5: "Depuración",
+    16: "Información"
 }
 
 def get_username_from_sid(sid):
@@ -46,14 +47,11 @@ def get_username_from_sid(sid):
         return "Usuario desconocido"
 
 def get_operation_code(event):
-    """Intenta traducir el código de operación."""
-    try:
-        # Si es posible, intenta obtener el texto directamente
-        operation_code = win32evtlogutil.SafeFormatMessage(event, event.SourceName)
-        return operation_code.strip()
-    except Exception:
-        # Si no, devuelve el código numérico (si existe)
-        return operation_code_mapping.get(event.EventCategory, f"Desconocido ({event.EventCategory})")
+    """Devuelve el código de operación traducido o su valor numérico."""
+    opcode = getattr(event, "EventCategory", None)  # Extraer el código de operación
+    if opcode is not None:
+        return operation_code_mapping.get(opcode, f"Desconocido ({opcode})")
+    return "No disponible"
 
 print(f"Extrayendo datos del visor de eventos del día anterior... Guardando en {output_file_name}\n")
 
@@ -91,7 +89,7 @@ try:
                     # Obtener el usuario
                     user = get_username_from_sid(event.Sid) if hasattr(event, 'Sid') and event.Sid else "No disponible"
 
-                    # Traducir el código de operación
+                    # Obtener el código de operación
                     operation_code = get_operation_code(event)
 
                     # Agregar los datos del evento al archivo
