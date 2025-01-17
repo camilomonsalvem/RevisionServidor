@@ -51,24 +51,21 @@ def main():
         sorted_events = sorted(wql_r, key=lambda x: x.TimeGenerated, reverse=True)
         events = []
         for event in sorted_events:
+            # Lógica para determinar la categoría de tarea
+            if event.Category == 0:
+                task_category = "Ninguno"
+            else:
+                task_category = getattr(event, "CategoryString", None) or event.Category
             events.append({
-                "Message": event.Message,
-                "Logfile": event.Logfile,
-                "SourceName": event.SourceName,
-                "EventCode": event.EventCode,
-                "EventIdentifier": event.EventIdentifier,
+                "Mensaje": event.Message,
+                "Nombre del Registro": event.Logfile,
+                "Origen": event.SourceName,
+                "Id": event.EventCode,
                 "Nivel": event.Type,
-                "User": event.User,
-                "OpCode": getattr(event, "Opcode", None),  # Agregar el campo OpCode
+                "Usuario": event.User,
                 "TimeGenerated": format_wmi_time(event.TimeGenerated),
-                "TimeWritten": format_wmi_time(event.TimeWritten),
-                "Category": event.Category,
-                "CategoryString": getattr(event, "CategoryString", None),
-                "ComputerName": event.ComputerName,
-                "OTROS CAMPOS": "//",
-                "Data": event.Data,
-                "EventType": event.EventType,
-                "InsertionStrings": event.InsertionStrings,
+                "Categoria de Tarea": task_category,
+                "Equipo": event.ComputerName,
                 "RecordNumber": event.RecordNumber,
             })
         return events
@@ -83,7 +80,7 @@ if __name__ == '__main__':
         with open("wmi_events.txt", "w", encoding="utf-8") as file:
             file.write("Eventos encontrados en el log de Sistema del día anterior (ordenados por fecha descendente):\n")
             for event in events:
-                file.write("-----\n")
+                file.write("--------------------------------------------\n")
                 for key, value in event.items():
                     file.write(f"{key}: {value}\n")
         print(f"Se encontraron {len(events)} eventos. Guardados en el archivo 'wmi_events.txt'.")
