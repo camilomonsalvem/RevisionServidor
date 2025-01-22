@@ -3,6 +3,9 @@ import csv
 import time
 import psutil
 import smtplib
+import os
+import socket
+from dotenv import load_dotenv
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from office365.runtime.auth.authentication_context import AuthenticationContext
@@ -10,26 +13,28 @@ from office365.sharepoint.client_context import ClientContext
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+load_dotenv(".env")
+
+username = os.getenv("idt_username")
+password = os.getenv("idt_password")
+site_url = os.getenv("site_url")
+
 # Configuración de SharePoint VISOR DE EVENTOS
-site_url = 'https://idtsas.sharepoint.com/sites/Bk-Empresas'
-list_name = 'Visor de Eventos Construsol'
-username = 'info@idtsas.com'
-password = '1D2022++'
+list_name_visor_eventos = os.getenv("list_name_visor_eventos")
 
 # Configuración de SharePoint CHEQUEO SERVIDOR
-list_name_inventario = 'Inventario PC Construsol'  # Lista relacionada para la columna Lookup
-list_name_chequeo_servidor = 'Chequeo Servidor Construsol'
-# nombre_equipo_actual = socket.gethostname()
-nombre_equipo_actual = "CONSTRUSOL002"  # Nombre de ejemplo
-ruta_archivos_guardados = "C:\\Archivos\\Backup"  # Ajustar ruta según tu caso
-ruta_archivos_guardados_system_state = "C:\\Archivos\\SystemState"  # Ajustar ruta
+list_name_inventario = os.getenv("list_name_inventario")
+list_name_chequeo_servidor = os.getenv("list_name_chequeo_servidor")
+nombre_equipo_actual = socket.gethostname()
+ruta_archivos_guardados = os.getenv("ruta_archivos_guardados")
+ruta_archivos_guardados_system_state = os.getenv("ruta_archivos_guardados_system_state")
 
 # Configuración de correo
-smtp_server = "smtp.office365.com"  # Reemplaza con tu servidor SMTP
-smtp_port = 587  # Puerto SMTP
-email_sender = username  # Dirección de correo del remitente
-email_password = password  # Contraseña del correo
-email_recipient = "cmonsalve@idtsas.com"  # Dirección de correo del destinatario
+smtp_server = os.getenv("smtp_server")
+smtp_port = os.getenv("smtp_port")
+email_sender = os.getenv("email_sender")
+email_password = os.getenv("email_password")
+email_recipient = os.getenv("email_recipient")
 
 # Funciones para el VISOR DE EVENTOS
 
@@ -127,7 +132,7 @@ def consolidate_events(events):
             consolidated[key]["NoEventos"] += 1
     return consolidated.values()
 
-def upload_events_to_sharepoint(events):
+def upload_events_to_sharepoint(events, chequeo_servidor_id):
     try:
         ctx_auth = AuthenticationContext(site_url)
         if ctx_auth.acquire_token_for_user(username, password):
@@ -137,7 +142,7 @@ def upload_events_to_sharepoint(events):
             print("Error al autenticar:", ctx_auth.get_last_error())
             return
 
-        list_obj = ctx.web.lists.get_by_title(list_name)
+        list_obj = ctx.web.lists.get_by_title(list_name_visor_eventos)
         event_count = 0
 
         for event in events:
@@ -151,7 +156,9 @@ def upload_events_to_sharepoint(events):
                     'Fecha': event['TimeGenerated'],
                     'Nivel': event['Type'],
                     'User': event['User'],
-                    'No_x0020_de_x0020_Eventos': event['NoEventos']
+                    'No_x0020_de_x0020_Eventos': event['NoEventos'],
+                    # Asegúrate de enviar un objeto para la columna de tipo Lookup
+                    'ID_x0020_Chequeo_x0020_ServidorId': chequeo_servidor_id  # Nota: "_Id" al final
                 }
                 list_obj.add_item(item_properties)
                 ctx.execute_query()
@@ -266,10 +273,12 @@ def subir_chequeo_servidor_sharepoint(datos, servidor_lookup_id):
             "Sistemas_x0020_Operativo": datos["Sistema Operativo"],
             "ServidorId": servidor_lookup_id,  # Enviar el ID directamente como un número entero
         }
-        target_list.add_item(item_properties).execute_query()
+        item = target_list.add_item(item_properties).execute_query()
         print("Chequeo Servidor subido exitosamente a SharePoint.")
+        return item.properties["ID"]  # Retorna el ID del elemento creado
     else:
         print("Error de autenticación.")
+        return None
 
 if __name__ == "__main__":
     csv_file_name = "Eventos_ayer.csv"
@@ -281,16 +290,17 @@ if __name__ == "__main__":
     servidor_lookup_id = obtener_servidor_id(nombre_equipo_actual)
     # Subir datos a SharePoint
     if servidor_lookup_id:
-        # Subir datos a SharePoint
-        subir_chequeo_servidor_sharepoint(datos_sistema, servidor_lookup_id)
+        chequeo_servidor_id = subir_chequeo_servidor_sharepoint(datos_sistema, servidor_lookup_id)
+        if chequeo_servidor_id:
+            if events:
+                save_events_to_csv(events, csv_file_name)
+                consolidated_events = consolidate_events(events)
+                event_count = upload_events_to_sharepoint(consolidated_events, chequeo_servidor_id)
+                if event_count > 0:
+                    send_email_notification(event_count)
+            else:
+                print("No se encontraron eventos para el día anterior.")
+        else:
+            print("No se pudo crear el Chequeo Servidor.")
     else:
         print("No se pudo encontrar el equipo en la lista. No se subieron datos.")
-    
-    if events:
-        save_events_to_csv(events, csv_file_name)
-        consolidated_events = consolidate_events(events)
-        event_count = upload_events_to_sharepoint(consolidated_events)
-        if event_count > 0:
-            send_email_notification(event_count)
-    else:
-        print("No se encontraron eventos para el día anterior.")
