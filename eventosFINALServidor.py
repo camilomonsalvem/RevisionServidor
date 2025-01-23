@@ -40,10 +40,13 @@ email_recipient = os.getenv("email_recipient")
 
 def format_wmi_time(wmi_time):
     try:
+        if not wmi_time:
+            return "N/A"
         utc_time = datetime.strptime(wmi_time.split('.')[0], '%Y%m%d%H%M%S').replace(tzinfo=timezone.utc)
         bogota_time = utc_time.astimezone(timezone(timedelta(hours=-5)))
         return bogota_time.strftime('%Y-%m-%d %H:%M:%S')
-    except Exception:
+    except Exception as e:
+        print(f"Error al formatear el tiempo: {e}")
         return "N/A"
 
 def get_events_from_yesterday():
@@ -111,23 +114,25 @@ def consolidate_events(events):
     consolidated = {}
 
     for event in events:
-        key = (event.SourceName, event.EventCode, getattr(event, "CategoryString", "Ninguno"))
-        full_message = event.Message or ""
+        key = (
+            event.SourceName or "Desconocido",
+            event.EventCode or 0,
+            getattr(event, "CategoryString", "Ninguno")
+        )
+        full_message = (event.Message or "").strip()
         if hasattr(event, "StringInserts") and event.StringInserts:
             full_message += "\n" + "\n".join(event.StringInserts)
 
-        formatted_message = full_message.strip()
-
         if key not in consolidated:
             consolidated[key] = {
-                "SourceName": event.SourceName,
-                "EventCode": event.EventCode,
+                "SourceName": event.SourceName or "Desconocido",
+                "EventCode": event.EventCode or 0,
                 "CategoryString": getattr(event, "CategoryString", "Ninguno"),
-                "Message": formatted_message,
+                "Message": full_message,
                 "TimeGenerated": format_wmi_time(event.TimeGenerated),
-                "Type": event.Type,
-                "User": event.User,
-                "ComputerName": event.ComputerName,
+                "Type": event.Type or "Desconocido",
+                "User": event.User or "Desconocido",
+                "ComputerName": event.ComputerName or "Desconocido",
                 "NoEventos": 1
             }
         else:
@@ -151,16 +156,15 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id):
         for event in events:
             try:
                 item_properties = {
-                    'Title': event['SourceName'],
-                    'Id_x0020_del_x0020_Evento': str(event['EventCode']),
-                    'Origen': event['SourceName'],
-                    'Categoria_x0020_de_x0020_Tarea': event['CategoryString'],
-                    'Detalle': event['Message'],
-                    'Fecha': event['TimeGenerated'],
-                    'Nivel': event['Type'],
-                    'User': event['User'],
-                    'No_x0020_de_x0020_Eventos': event['NoEventos'],
-                    # Asegúrate de enviar un objeto para la columna de tipo Lookup
+                    'Title': event['SourceName'] or "Desconocido",
+                    'Id_x0020_del_x0020_Evento': str(event['EventCode'] or 0),
+                    'Origen': event['SourceName'] or "Desconocido",
+                    'Categoria_x0020_de_x0020_Tarea': event['CategoryString'] or "Ninguno",
+                    'Detalle': event['Message'] or "N/A",
+                    'Fecha': event['TimeGenerated'] or "N/A",
+                    'Nivel': event['Type'] or "N/A",
+                    'User': event['User'] or "N/A",
+                    'No_x0020_de_x0020_Eventos': event['NoEventos'] or 0,
                     'ID_x0020_Chequeo_x0020_ServidorId': chequeo_servidor_id  # Nota: "_Id" al final
                 }
                 list_obj.add_item(item_properties)
@@ -168,7 +172,7 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id):
                 event_count += 1
                 time.sleep(0.5)
             except Exception as e:
-                print(f"Error al cargar el evento {event['EventRecordID']}: {e}")
+                print(f"Error al cargar el evento {event.get('EventRecordID', 'Desconocido')}: {e}")
 
         print(f"Total de eventos cargados a SharePoint: {event_count}")
         return event_count
