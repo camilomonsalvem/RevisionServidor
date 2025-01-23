@@ -49,8 +49,8 @@ def format_wmi_time(wmi_time):
 def get_events_from_yesterday():
     bogota_tz = timezone(timedelta(hours=-5))
     today_local = datetime.now(bogota_tz)
-    yesterday_start_local = (today_local - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
-    yesterday_end_local = (today_local - timedelta(days=1)).replace(hour=23, minute=59, second=59, microsecond=0)
+    yesterday_start_local = (today_local).replace(hour=0, minute=0, second=0, microsecond=0)
+    yesterday_end_local = (today_local).replace(hour=23, minute=59, second=59, microsecond=0)
 
     yesterday_start_utc = yesterday_start_local.astimezone(timezone.utc).strftime('%Y%m%d%H%M%S.000000+000')
     yesterday_end_utc = yesterday_end_local.astimezone(timezone.utc).strftime('%Y%m%d%H%M%S.999999+000')
@@ -109,6 +109,7 @@ def save_events_to_csv(events, csv_file_name):
 
 def consolidate_events(events):
     consolidated = {}
+
     for event in events:
         key = (event.SourceName, event.EventCode, getattr(event, "CategoryString", "Ninguno"))
         full_message = event.Message or ""
@@ -116,6 +117,7 @@ def consolidate_events(events):
             full_message += "\n" + "\n".join(event.StringInserts)
 
         formatted_message = full_message.strip()
+
         if key not in consolidated:
             consolidated[key] = {
                 "SourceName": event.SourceName,
@@ -130,7 +132,8 @@ def consolidate_events(events):
             }
         else:
             consolidated[key]["NoEventos"] += 1
-    return consolidated.values()
+
+    return list(consolidated.values())
 
 def upload_events_to_sharepoint(events, chequeo_servidor_id):
     try:
@@ -165,7 +168,7 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id):
                 event_count += 1
                 time.sleep(0.5)
             except Exception as e:
-                print(f"Error al cargar el evento {event['EventCode']}: {e}")
+                print(f"Error al cargar el evento {event['EventRecordID']}: {e}")
 
         print(f"Total de eventos cargados a SharePoint: {event_count}")
         return event_count
@@ -174,17 +177,22 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id):
         print(f"Error al subir los eventos a SharePoint: {e}")
         return 0
 
-def send_email_notification(event_count):
+def send_email_notification(total_events, error_events, critical_events):
     try:
-        msg = MIMEMultipart()
+        with open("email_template.html", "r", encoding="utf-8") as file:
+            html_template = file.read()
+
+        html_body = html_template.replace("{{total_events}}", str(total_events))
+        html_body = html_body.replace("{{error_events}}", str(error_events))
+        html_body = html_body.replace("{{critical_events}}", str(critical_events))
+
+        msg = MIMEMultipart("alternative")
         msg['From'] = email_sender
         msg['To'] = email_recipient
-        msg['Subject'] = f"Subida de eventos completada ({event_count} eventos)"
+        msg['Subject'] = f"Reporte de Eventos: {total_events} procesados, {error_events} errores, {critical_events} críticos"
+        msg.attach(MIMEText(html_body, "html"))
 
-        body = f"Se han subido correctamente {event_count} eventos al portal de SharePoint para el día anterior.\nPor favor, revise los eventos subidos en el portal."
-        msg.attach(MIMEText(body, 'plain'))
-
-        server = smtplib.SMTP(smtp_server, smtp_port)
+        server = smtplib.SMTP(smtp_server, int(smtp_port))
         server.starttls()
         server.login(email_sender, email_password)
         server.sendmail(email_sender, email_recipient, msg.as_string())
@@ -206,13 +214,20 @@ def obtener_datos_sistema():
 
     # Información de los discos
     discos = {}
+    total_disks = 0  # Tamaño total de los discos accesibles
+
     for partition in psutil.disk_partitions():
         try:
             disk_usage = psutil.disk_usage(partition.mountpoint)
             disco_nombre = partition.device.strip("\\")  # Ejemplo: C:, D:, sin barra
             discos[disco_nombre] = round(disk_usage.free / (1024**3), 2)  # Espacio libre en GB
+            total_disks += disk_usage.total  # Sumar el tamaño total de discos accesibles
         except PermissionError:
-            discos[partition.device] = 0  # Si no hay acceso, se registra como 0
+            print(f"Unidad no accesible: {partition.device}")
+            discos[partition.device] = 0
+        except Exception as e:
+            print(f"Error al acceder a la unidad {partition.device}: {e}")
+            discos[partition.device] = 0
 
     # Combinar datos en un diccionario
     datos = {
@@ -221,13 +236,13 @@ def obtener_datos_sistema():
         "Ruta Archivos Guardados System State": ruta_archivos_guardados_system_state,
         "Procesador (% usado)": cpu_usage,
         "Memoria (% usado)": memory_usage,
-        "Tamaño Discos": round(sum(psutil.disk_usage(p.mountpoint).total for p in psutil.disk_partitions()) / (1024**3), 2),
+        "Tamaño Discos": round(total_disks / (1024**3), 2),  # Convertir a GB
         "Espacio Libre Disco C": discos.get("C:", 0),
         "Espacio Libre Disco D": discos.get("D:", 0),
         "Espacio Libre Disco I": discos.get("I:", 0),
         "Version de la Actualizacion": "1.0.0",
         "Virus Detectados": 0,
-        "Sistema Operativo": f"{psutil.os.name}",
+        "Sistema Operativo": os.name,
     }
 
     return datos
@@ -284,23 +299,39 @@ if __name__ == "__main__":
     csv_file_name = "Eventos_ayer.csv"
     events = get_events_from_yesterday()
     
-    # CHEQUEO SERVIDOR 
-    datos_sistema = obtener_datos_sistema()
-    print(f"Nombre del equipo actual: {nombre_equipo_actual}")
-    servidor_lookup_id = obtener_servidor_id(nombre_equipo_actual)
-    # Subir datos a SharePoint
-    if servidor_lookup_id:
-        chequeo_servidor_id = subir_chequeo_servidor_sharepoint(datos_sistema, servidor_lookup_id)
-        if chequeo_servidor_id:
-            if events:
-                save_events_to_csv(events, csv_file_name)
-                consolidated_events = consolidate_events(events)
-                event_count = upload_events_to_sharepoint(consolidated_events, chequeo_servidor_id)
-                if event_count > 0:
-                    send_email_notification(event_count)
+    # CHEQUEO SERVIDOR
+    try:
+        datos_sistema = obtener_datos_sistema()
+        print(f"Nombre del equipo actual: {nombre_equipo_actual}")
+        
+        servidor_lookup_id = obtener_servidor_id(nombre_equipo_actual)
+        if servidor_lookup_id:
+            chequeo_servidor_id = subir_chequeo_servidor_sharepoint(datos_sistema, servidor_lookup_id)
+            
+            if chequeo_servidor_id:
+                if events:
+                    # Consolidar eventos
+                    consolidated_events = consolidate_events(events)
+
+                    # Contar ítems de tipo Error y Critical en el consolidado
+                    error_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() == "error")
+                    critical_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() == "critical")
+
+                    # Subir los eventos al visor de SharePoint asociados al chequeo del servidor
+                    event_count = upload_events_to_sharepoint(consolidated_events, chequeo_servidor_id)
+                    
+                    # Crear el archivo CSV como respaldo
+                    save_events_to_csv(events, csv_file_name)
+                    print(f"Archivo CSV guardado en: {csv_file_name}")
+
+                    # Enviar el correo de notificación con el resumen
+                    if event_count > 0:
+                        send_email_notification(len(consolidated_events), error_events, critical_events)
+                else:
+                    print("No se encontraron eventos para el día anterior.")
             else:
-                print("No se encontraron eventos para el día anterior.")
+                print("No se pudo crear el Chequeo Servidor. No se subieron eventos.")
         else:
-            print("No se pudo crear el Chequeo Servidor.")
-    else:
-        print("No se pudo encontrar el equipo en la lista. No se subieron datos.")
+            print("No se pudo encontrar el equipo en la lista. No se realizó ninguna operación.")
+    except Exception as e:
+        print(f"Error general durante la ejecución: {e}")
