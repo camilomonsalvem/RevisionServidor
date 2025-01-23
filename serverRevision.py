@@ -7,7 +7,6 @@ import time
 from datetime import datetime, timedelta, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
 import psutil
 import wmi
 from dotenv import load_dotenv
@@ -249,7 +248,7 @@ def send_email_notification(total_events, error_events, critical_events):
 # FUNCIONES PARA EL CHEQUEO SERVIDOR
 
 # Obtener información del sistema
-def obtener_datos_sistema():
+def get_system_data():
     # Procesador y memoria
     cpu_usage = psutil.cpu_percent(interval=1)
     memory_info = psutil.virtual_memory()
@@ -309,7 +308,7 @@ def obtener_datos_sistema():
     return datos
 
 # Obtener el ID del equipo en la lista "Inventario PC Construsol"
-def obtener_servidor_id(nombre_equipo):
+def get_server_id(nombre_equipo):
     try:
         context_auth = AuthenticationContext(site_url)
         if context_auth.acquire_token_for_user(username, password):
@@ -336,7 +335,7 @@ def obtener_servidor_id(nombre_equipo):
         return None
 
 # Subir datos a SharePoint
-def subir_chequeo_servidor_sharepoint(datos, servidor_lookup_id):
+def send_chequeo_servidor_sharepoint(datos, servidor_lookup_id):
     try:
         context_auth = AuthenticationContext(site_url)
         if context_auth.acquire_token_for_user(username, password):
@@ -378,13 +377,13 @@ if __name__ == "__main__":
     
     # CHEQUEO SERVIDOR
     try:
-        datos_sistema = obtener_datos_sistema()
+        datos_sistema = get_system_data()
         print(f"Nombre del equipo actual: {nombre_equipo_actual}")
         
-        servidor_lookup_id = obtener_servidor_id(nombre_equipo_actual)
+        servidor_lookup_id = get_server_id(nombre_equipo_actual)
         print(f"ID del servidor: {servidor_lookup_id}")
         if servidor_lookup_id:
-            chequeo_servidor_id = subir_chequeo_servidor_sharepoint(datos_sistema, servidor_lookup_id)
+            chequeo_servidor_id = send_chequeo_servidor_sharepoint(datos_sistema, servidor_lookup_id)
             print(f"ID del Chequeo Servidor: {chequeo_servidor_id}")
             
             if chequeo_servidor_id:
