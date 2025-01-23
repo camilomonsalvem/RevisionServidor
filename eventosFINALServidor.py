@@ -1,17 +1,25 @@
-import wmi
 import csv
-import time
-import psutil
-import smtplib
+import logging
 import os
+import smtplib
 import socket
-from dotenv import load_dotenv
-from collections import Counter
+import time
 from datetime import datetime, timedelta, timezone
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+import psutil
+import wmi
+from dotenv import load_dotenv
 from office365.runtime.auth.authentication_context import AuthenticationContext
 from office365.sharepoint.client_context import ClientContext
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+
+# Configure logging
+logging.basicConfig(
+    filename="app.log",
+    level=logging.DEBUG,
+    format="%(asctime)s - %(levelname)s - %(filename)s - Line %(lineno)d: %(message)s"
+)
 
 load_dotenv(".env")
 
@@ -46,7 +54,9 @@ def format_wmi_time(wmi_time):
         bogota_time = utc_time.astimezone(timezone(timedelta(hours=-5)))
         return bogota_time.strftime('%Y-%m-%d %H:%M:%S')
     except Exception as e:
-        print(f"Error al formatear el tiempo: {e}")
+        msg_error = f"Error al formatear el tiempo: {e}"
+        print(msg_error)
+        logging.error(msg_error)
         return "N/A"
 
 def get_events_from_yesterday():
@@ -59,6 +69,7 @@ def get_events_from_yesterday():
     yesterday_end_utc = yesterday_end_local.astimezone(timezone.utc).strftime('%Y%m%d%H%M%S.999999+000')
 
     print(f"Buscando eventos entre {yesterday_start_utc} y {yesterday_end_utc} (UTC)")
+    logging.info(f"Buscando eventos entre {yesterday_start_utc} y {yesterday_end_utc} (UTC)")
 
     wmi_o = wmi.WMI('.')
     query = (
@@ -74,7 +85,9 @@ def get_events_from_yesterday():
         return results
 
     except Exception as e:
-        print(f"Error al ejecutar la consulta: {e}")
+        msg_error = f"Error al ejecutar la consulta: {e}"
+        print(msg_error)
+        logging.error(msg_error)
         return []
 
 def save_events_to_csv(events, csv_file_name):
@@ -107,36 +120,44 @@ def save_events_to_csv(events, csv_file_name):
                 writer.writerow(row)
 
             print(f"Eventos guardados en el archivo CSV: {csv_file_name}")
+            logging.info(f"Eventos guardados en el archivo CSV: {csv_file_name}")
     except Exception as e:
-        print(f"Error al guardar en el archivo CSV: {e}")
+        msg_error = f"Error al guardar en el archivo CSV: {e}"
+        print(msg_error)
+        logging.error(msg_error)
 
 def consolidate_events(events):
     consolidated = {}
 
     for event in events:
-        key = (
-            event.SourceName or "Desconocido",
-            event.EventCode or 0,
-            getattr(event, "CategoryString", "Ninguno")
-        )
-        full_message = (event.Message or "").strip()
-        if hasattr(event, "StringInserts") and event.StringInserts:
-            full_message += "\n" + "\n".join(event.StringInserts)
+        try:
+            key = (
+                event.SourceName or "Desconocido",
+                event.EventCode or 0,
+                getattr(event, "CategoryString", "Ninguno")
+            )
+            full_message = (event.Message or "").strip()
+            if hasattr(event, "StringInserts") and event.StringInserts:
+                full_message += "\n" + "\n".join(event.StringInserts)
 
-        if key not in consolidated:
-            consolidated[key] = {
-                "SourceName": event.SourceName or "Desconocido",
-                "EventCode": event.EventCode or 0,
-                "CategoryString": getattr(event, "CategoryString", "Ninguno"),
-                "Message": full_message,
-                "TimeGenerated": format_wmi_time(event.TimeGenerated),
-                "Type": event.Type or "Desconocido",
-                "User": event.User or "Desconocido",
-                "ComputerName": event.ComputerName or "Desconocido",
-                "NoEventos": 1
-            }
-        else:
-            consolidated[key]["NoEventos"] += 1
+            if key not in consolidated:
+                consolidated[key] = {
+                    "SourceName": event.SourceName or "Desconocido",
+                    "EventCode": event.EventCode or 0,
+                    "CategoryString": getattr(event, "CategoryString", "Ninguno"),
+                    "Message": full_message,
+                    "TimeGenerated": format_wmi_time(event.TimeGenerated),
+                    "Type": event.Type or "Desconocido",
+                    "User": event.User or "Desconocido",
+                    "ComputerName": event.ComputerName or "Desconocido",
+                    "NoEventos": 1
+                }
+            else:
+                consolidated[key]["NoEventos"] += 1
+        except Exception as e:
+            msg_error = f"Error al consolidar eventos: {e}"
+            print(msg_error)
+            logging.error(msg_error)
 
     return list(consolidated.values())
 
@@ -145,8 +166,10 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id):
         ctx_auth = AuthenticationContext(site_url)
         if ctx_auth.acquire_token_for_user(username, password):
             ctx = ClientContext(site_url, ctx_auth)
+            logging.info("Autenticación exitosa")
             print("Autenticación exitosa")
         else:
+            logging.error(f"Error al autenticar: {ctx_auth.get_last_error()}")
             print("Error al autenticar:", ctx_auth.get_last_error())
             return
 
@@ -172,13 +195,17 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id):
                 event_count += 1
                 time.sleep(0.5)
             except Exception as e:
-                print(f"Error al cargar el evento {event.get('EventRecordID', 'Desconocido')}: {e}")
+                msg_error = f"Error al cargar el evento {event.get('EventRecordID', 'Desconocido')}: {e}"
+                print(msg_error)
+                logging.error(msg_error)
 
         print(f"Total de eventos cargados a SharePoint: {event_count}")
         return event_count
 
     except Exception as e:
-        print(f"Error al subir los eventos a SharePoint: {e}")
+        msg_error = f"Error al subir los eventos a SharePoint: {e}"
+        print(msg_error)
+        logging.error(msg_error)
         return 0
 
 def send_email_notification(total_events, error_events, critical_events):
@@ -205,7 +232,9 @@ def send_email_notification(total_events, error_events, critical_events):
         print(f"Correo de notificación enviado a {email_recipient}")
 
     except Exception as e:
-        print(f"Error al enviar el correo de notificación: {e}")
+        msg_error = f"Error al enviar el correo de notificación: {e}"
+        print(msg_error)
+        logging.error(msg_error)
 
 # FUNCIONES PARA EL CHEQUEO SERVIDOR
 
@@ -232,7 +261,9 @@ def obtener_datos_sistema():
             discos[disco_nombre] = round(disk_usage.free / (1024**3), 2)  # Espacio libre en GB
             total_disks += disk_usage.total  # Sumar el tamaño total de discos accesibles
         except PermissionError:
-            print(f"Unidad no accesible: {partition.device}")
+            msg_error = f"Permiso denegado al acceder a la unidad {partition.device}"
+            print(msg_error)
+            logging.error(msg_error)
             discos[partition.device if partition.device else "Desconocido"] = 0
         except Exception as e:
             print(f"Error al acceder a la unidad {partition.device}: {e}")
@@ -244,7 +275,9 @@ def obtener_datos_sistema():
         os_info = wmi_conn.Win32_OperatingSystem()[0]
         sistema_operativo = f"{os_info.Caption} {os_info.OSArchitecture}"  # Ejemplo: Windows 11 Home Single Language 64-bit
     except Exception as e:
-        print(f"Error al obtener información del sistema operativo: {e}")
+        msg_error = f"Error al obtener información del sistema operativo: {e}"
+        print(msg_error)
+        logging.error(msg_error)
         sistema_operativo = "No disponible"
 
     # Combinar datos en un diccionario
@@ -277,10 +310,13 @@ def obtener_servidor_id(nombre_equipo):
             if item.properties["Title"] == nombre_equipo:  # Comparar con el nombre del equipo
                 return item.properties["ID"]
 
+        logging.error(f"No se encontró el equipo con nombre: {nombre_equipo} en la lista {list_name_inventario}.")
         print(f"No se encontró el equipo con nombre: {nombre_equipo} en la lista {list_name_inventario}.")
         return None
     else:
-        print("Error de autenticación al obtener el ID del servidor.")
+        msg_error = "Error de autenticación al obtener el ID del servidor"
+        print(msg_error)
+        logging.error(msg_error)
         return None
 
 # Subir datos a SharePoint
@@ -310,6 +346,7 @@ def subir_chequeo_servidor_sharepoint(datos, servidor_lookup_id):
         print("Chequeo Servidor subido exitosamente a SharePoint.")
         return item.properties["ID"]  # Retorna el ID del elemento creado
     else:
+        logging.error("Error de autenticación al subir el Chequeo Servidor.")
         print("Error de autenticación.")
         return None
 
@@ -346,10 +383,14 @@ if __name__ == "__main__":
                     if event_count > 0:
                         send_email_notification(len(consolidated_events), error_events, critical_events)
                 else:
+                    logging.error("No se encontraron eventos para el día anterior.")
                     print("No se encontraron eventos para el día anterior.")
             else:
+                logging.error("No se pudo crear el Chequeo Servidor. No se subieron eventos.")
                 print("No se pudo crear el Chequeo Servidor. No se subieron eventos.")
         else:
+            logging.error("No se encontró el ID del servidor. No se subieron eventos.")
             print("No se pudo encontrar el equipo en la lista. No se realizó ninguna operación.")
     except Exception as e:
+        logging.error(f"Error general durante la ejecución: {e}")
         print(f"Error general durante la ejecución: {e}")
