@@ -49,8 +49,8 @@ def format_wmi_time(wmi_time):
 def get_events_from_yesterday():
     bogota_tz = timezone(timedelta(hours=-5))
     today_local = datetime.now(bogota_tz)
-    yesterday_start_local = (today_local).replace(hour=0, minute=0, second=0, microsecond=0)
-    yesterday_end_local = (today_local).replace(hour=23, minute=59, second=59, microsecond=0)
+    yesterday_start_local = (today_local - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+    yesterday_end_local = (today_local - timedelta(days=1)).replace(hour=23, minute=59, second=59, microsecond=0)
 
     yesterday_start_utc = yesterday_start_local.astimezone(timezone.utc).strftime('%Y%m%d%H%M%S.000000+000')
     yesterday_end_utc = yesterday_end_local.astimezone(timezone.utc).strftime('%Y%m%d%H%M%S.999999+000')
@@ -229,6 +229,15 @@ def obtener_datos_sistema():
             print(f"Error al acceder a la unidad {partition.device}: {e}")
             discos[partition.device] = 0
 
+    # Obtener información detallada del sistema operativo
+    try:
+        wmi_conn = wmi.WMI()
+        os_info = wmi_conn.Win32_OperatingSystem()[0]
+        sistema_operativo = f"{os_info.Caption} {os_info.OSArchitecture}"  # Ejemplo: Windows 11 Home Single Language 64-bit
+    except Exception as e:
+        print(f"Error al obtener información del sistema operativo: {e}")
+        sistema_operativo = "No disponible"
+
     # Combinar datos en un diccionario
     datos = {
         "Ruta Archivos Guardados": ruta_archivos_guardados,
@@ -242,7 +251,7 @@ def obtener_datos_sistema():
         "Espacio Libre Disco I": discos.get("I:", 0),
         "Version de la Actualizacion": "1.0.0",
         "Virus Detectados": 0,
-        "Sistema Operativo": os.name,
+        "Sistema Operativo": sistema_operativo,
     }
 
     return datos
