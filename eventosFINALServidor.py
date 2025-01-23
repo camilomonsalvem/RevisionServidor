@@ -218,10 +218,11 @@ def obtener_datos_sistema():
 
     for partition in psutil.disk_partitions():
         try:
-            if not partition.device:  # Validar si `partition.device` es None
-                print(f"Partición inválida detectada: {partition}")
+            # Filtrar solo discos duros locales (skip CD/DVD drives y unidades extraíbles)
+            if "cdrom" in partition.opts or partition.fstype == "":
+                print(f"Unidad omitida (no es disco local): {partition.device}")
                 continue
-            
+
             disk_usage = psutil.disk_usage(partition.mountpoint)
             disco_nombre = partition.device.strip("\\") if partition.device else "Desconocido"  # Validar None
             discos[disco_nombre] = round(disk_usage.free / (1024**3), 2)  # Espacio libre en GB
