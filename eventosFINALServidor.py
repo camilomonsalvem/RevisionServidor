@@ -44,6 +44,16 @@ email_sender = os.getenv("email_sender")
 email_password = os.getenv("email_password")
 email_recipient = os.getenv("email_recipient")
 
+print("Configuración cargada correctamente...")
+print(f"Usuario: {username}")
+print(f"URL del sitio: {site_url}")
+print(f"Lista Visor de Eventos: {list_name_visor_eventos}")
+print(f"Lista Inventario PC Construsol: {list_name_inventario}")
+print(f"Lista Chequeo Servidor: {list_name_chequeo_servidor}")
+print(f"Nombre del equipo actual: {nombre_equipo_actual}")
+print(f"Ruta Archivos Guardados: {ruta_archivos_guardados}")
+print(f"Ruta Archivos Guardados System State: {ruta_archivos_guardados_system_state}")
+
 # Funciones para el VISOR DE EVENTOS
 
 def format_wmi_time(wmi_time):
@@ -300,54 +310,66 @@ def obtener_datos_sistema():
 
 # Obtener el ID del equipo en la lista "Inventario PC Construsol"
 def obtener_servidor_id(nombre_equipo):
-    context_auth = AuthenticationContext(site_url)
-    if context_auth.acquire_token_for_user(username, password):
-        ctx = ClientContext(site_url, context_auth)
-        inventario_list = ctx.web.lists.get_by_title(list_name_inventario)
-        items = inventario_list.get_items().execute_query()
+    try:
+        context_auth = AuthenticationContext(site_url)
+        if context_auth.acquire_token_for_user(username, password):
+            ctx = ClientContext(site_url, context_auth)
+            inventario_list = ctx.web.lists.get_by_title(list_name_inventario)
+            items = inventario_list.get_items().execute_query()
 
-        for item in items:
-            if item.properties["Title"] == nombre_equipo:  # Comparar con el nombre del equipo
-                return item.properties["ID"]
+            for item in items:
+                if item.properties["Title"] == nombre_equipo:  # Comparar con el nombre del equipo
+                    return item.properties["ID"]
 
-        logging.error(f"No se encontró el equipo con nombre: {nombre_equipo} en la lista {list_name_inventario}.")
-        print(f"No se encontró el equipo con nombre: {nombre_equipo} en la lista {list_name_inventario}.")
-        return None
-    else:
-        msg_error = "Error de autenticación al obtener el ID del servidor"
+            logging.error(f"No se encontró el equipo con nombre: {nombre_equipo} en la lista {list_name_inventario}.")
+            print(f"No se encontró el equipo con nombre: {nombre_equipo} en la lista {list_name_inventario}.")
+            return None
+        else:
+            msg_error = "Error de autenticación al obtener el ID del servidor"
+            print(msg_error)
+            logging.error(msg_error)
+            return None
+    except Exception as e:
+        msg_error = f"Error al obtener el ID del servidor: {e}"
         print(msg_error)
         logging.error(msg_error)
         return None
 
 # Subir datos a SharePoint
 def subir_chequeo_servidor_sharepoint(datos, servidor_lookup_id):
-    context_auth = AuthenticationContext(site_url)
-    if context_auth.acquire_token_for_user(username, password):
-        ctx = ClientContext(site_url, context_auth)
-        target_list = ctx.web.lists.get_by_title(list_name_chequeo_servidor)
+    try:
+        context_auth = AuthenticationContext(site_url)
+        if context_auth.acquire_token_for_user(username, password):
+            ctx = ClientContext(site_url, context_auth)
+            target_list = ctx.web.lists.get_by_title(list_name_chequeo_servidor)
 
-        # Crear un nuevo elemento en la lista
-        item_properties = {
-            "Title": datos["Ruta Archivos Guardados"],
-            "Fecha": datos["Fecha"],
-            "Ruta_x0020_Archivos_x0020_Guarda": datos["Ruta Archivos Guardados System State"],
-            "Procesador_x0020__x0028__x0025__": datos["Procesador (% usado)"] / 100,
-            "Memoria_x0020__x0028__x0025__x00": datos["Memoria (% usado)"] / 100,
-            "Tama_x00f1_o_x0020_Discos": datos["Tamaño Discos"],
-            "Espacio_x0020_Libre_x0020_Disco_": datos["Espacio Libre Disco C"],
-            "Espacio_x0020_Libre_x0020_Disco_0": datos["Espacio Libre Disco D"],
-            "Espacio_x0020_Libre_x0020_Disco_1": datos["Espacio Libre Disco I"],
-            "Version_x0020_de_x0020_la_x0020_": datos["Version de la Actualizacion"],
-            "Virus_x0020_Detectados": datos["Virus Detectados"],
-            "Sistemas_x0020_Operativo": datos["Sistema Operativo"],
-            "ServidorId": servidor_lookup_id,  # Enviar el ID directamente como un número entero
-        }
-        item = target_list.add_item(item_properties).execute_query()
-        print("Chequeo Servidor subido exitosamente a SharePoint.")
-        return item.properties["ID"]  # Retorna el ID del elemento creado
-    else:
-        logging.error("Error de autenticación al subir el Chequeo Servidor.")
-        print("Error de autenticación.")
+            # Crear un nuevo elemento en la lista
+            item_properties = {
+                "Title": datos["Ruta Archivos Guardados"],
+                "Fecha": datos["Fecha"],
+                "Ruta_x0020_Archivos_x0020_Guarda": datos["Ruta Archivos Guardados System State"],
+                "Procesador_x0020__x0028__x0025__": datos["Procesador (% usado)"] / 100,
+                "Memoria_x0020__x0028__x0025__x00": datos["Memoria (% usado)"] / 100,
+                "Tama_x00f1_o_x0020_Discos": datos["Tamaño Discos"],
+                "Espacio_x0020_Libre_x0020_Disco_": datos["Espacio Libre Disco C"],
+                "Espacio_x0020_Libre_x0020_Disco_0": datos["Espacio Libre Disco D"],
+                "Espacio_x0020_Libre_x0020_Disco_1": datos["Espacio Libre Disco I"],
+                "Version_x0020_de_x0020_la_x0020_": datos["Version de la Actualizacion"],
+                "Virus_x0020_Detectados": datos["Virus Detectados"],
+                "Sistemas_x0020_Operativo": datos["Sistema Operativo"],
+                "ServidorId": servidor_lookup_id,  # Enviar el ID directamente como un número entero
+            }
+            item = target_list.add_item(item_properties).execute_query()
+            print("Chequeo Servidor subido exitosamente a SharePoint.")
+            return item.properties["ID"]  # Retorna el ID del elemento creado
+        else:
+            logging.error("Error de autenticación al subir el Chequeo Servidor.")
+            print("Error de autenticación.")
+            return None
+    except Exception as e:
+        msg_error = f"Error al subir el Chequeo Servidor a SharePoint: {e}"
+        print(msg_error)
+        logging.error(msg_error)
         return None
 
 if __name__ == "__main__":
@@ -360,8 +382,10 @@ if __name__ == "__main__":
         print(f"Nombre del equipo actual: {nombre_equipo_actual}")
         
         servidor_lookup_id = obtener_servidor_id(nombre_equipo_actual)
+        print(f"ID del servidor: {servidor_lookup_id}")
         if servidor_lookup_id:
             chequeo_servidor_id = subir_chequeo_servidor_sharepoint(datos_sistema, servidor_lookup_id)
+            print(f"ID del Chequeo Servidor: {chequeo_servidor_id}")
             
             if chequeo_servidor_id:
                 if events:
