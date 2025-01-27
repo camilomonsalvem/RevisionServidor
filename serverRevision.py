@@ -4,11 +4,12 @@ import os
 import smtplib
 import socket
 import time
+import psutil
+import wmi
+import io
 from datetime import datetime, timedelta, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-import psutil
-import wmi
 from dotenv import load_dotenv
 from office365.runtime.auth.authentication_context import AuthenticationContext
 from office365.sharepoint.client_context import ClientContext
@@ -42,6 +43,10 @@ smtp_port = os.getenv("smtp_port")
 email_sender = os.getenv("email_sender")
 email_password = os.getenv("email_password")
 email_recipient = os.getenv("email_recipient")
+
+# Configuración de SharePoint Soporte Tecnico para archivo CSV
+site_url_soporte = os.getenv("site_url_soporte")
+sharepoint_folder = os.getenv("sharepoint_folder")
 
 print("Configuración cargada correctamente...")
 print(f"Usuario: {username}")
@@ -99,41 +104,72 @@ def get_events_from_yesterday():
         logging.error(msg_error)
         return []
 
-def save_events_to_csv(events, csv_file_name):
+def save_events_to_csv_and_upload(events, sharepoint_folder, file_name):
     headers = ["Nombre de Registro", "Origen", "ID", "Nivel", "Categoria de Tarea", "Registrado", "Equipo", "Usuario", "Mensaje", "EventRecordID"]
     try:
-        with open(csv_file_name, mode='w', newline='', encoding='utf-8') as csv_file:
-            writer = csv.DictWriter(csv_file, fieldnames=headers)
-            writer.writeheader()
+        # Usar StringIO para escribir el contenido del CSV en memoria
+        csv_buffer = io.StringIO()
+        writer = csv.DictWriter(csv_buffer, fieldnames=headers)
+        writer.writeheader()
 
-            for event in events:
-                full_message = event.Message or ""
-                if hasattr(event, "StringInserts") and event.StringInserts:
-                    full_message += "\n" + "\n".join(event.StringInserts)
+        for event in events:
+            full_message = event.Message or ""
+            if hasattr(event, "StringInserts") and event.StringInserts:
+                full_message += "\n" + "\n".join(event.StringInserts)
 
-                formatted_message = " ".join(full_message.splitlines())
-                task_category = "Ninguno" if event.Category == 0 else getattr(event, "CategoryString", None) or event.Category
+            formatted_message = " ".join(full_message.splitlines())
+            task_category = "Ninguno" if event.Category == 0 else getattr(event, "CategoryString", None) or event.Category
 
-                row = {
-                    "Nombre de Registro": event.Logfile,
-                    "Origen": event.SourceName,
-                    "ID": event.EventCode,
-                    "Nivel": event.Type,
-                    "Categoria de Tarea": task_category,
-                    "Registrado": format_wmi_time(event.TimeGenerated),
-                    "Equipo": event.ComputerName,
-                    "Usuario": event.User,
-                    "Mensaje": formatted_message,
-                    "EventRecordID": event.RecordNumber
-                }
-                writer.writerow(row)
+            row = {
+                "Nombre de Registro": event.Logfile,
+                "Origen": event.SourceName,
+                "ID": event.EventCode,
+                "Nivel": event.Type,
+                "Categoria de Tarea": task_category,
+                "Registrado": format_wmi_time(event.TimeGenerated),
+                "Equipo": event.ComputerName,
+                "Usuario": event.User,
+                "Mensaje": formatted_message,
+                "EventRecordID": event.RecordNumber
+            }
+            writer.writerow(row)
 
-            print(f"Eventos guardados en el archivo CSV: {csv_file_name}")
-            logging.info(f"Eventos guardados en el archivo CSV: {csv_file_name}")
+        # Subir el contenido del CSV a SharePoint
+        csv_buffer.seek(0)  # Volver al inicio del buffer para leerlo
+        upload_csv_buffer_to_sharepoint(csv_buffer, file_name, sharepoint_folder)
+        print("Archivo CSV generado y subido exitosamente a SharePoint.")
+        logging.info("Archivo CSV generado y subido exitosamente a SharePoint.")
     except Exception as e:
-        msg_error = f"Error al guardar en el archivo CSV: {e}"
+        msg_error = f"Error al generar o subir el archivo CSV: {e}"
         print(msg_error)
         logging.error(msg_error)
+
+def upload_csv_buffer_to_sharepoint(csv_buffer, file_name, sharepoint_folder):
+    try:
+        # Autenticación
+        context_auth = AuthenticationContext(site_url_soporte)
+        if context_auth.acquire_token_for_user(username, password):
+            ctx = ClientContext(site_url_soporte, context_auth)
+            logging.info("Autenticación exitosa para subir el archivo CSV.")
+        else:
+            error_msg = f"Error de autenticación: {context_auth.get_last_error()}"
+            logging.error(error_msg)
+            print(error_msg)
+            return False
+
+        # Ruta relativa correcta
+        target_folder = ctx.web.get_folder_by_server_relative_url(sharepoint_folder)
+
+        # Subir el contenido del CSV al archivo en SharePoint
+        target_folder.upload_file(file_name, csv_buffer.getvalue().encode("utf-8")).execute_query()
+        print(f"Archivo {file_name} subido exitosamente a SharePoint en {sharepoint_folder}.")
+        logging.info(f"Archivo {file_name} subido exitosamente a SharePoint en {sharepoint_folder}.")
+        return True
+    except Exception as e:
+        error_msg = f"Error al subir el archivo CSV a SharePoint: {e}"
+        logging.error(error_msg)
+        print(error_msg)
+        return False
 
 def consolidate_events(events):
     consolidated = {}
@@ -372,20 +408,26 @@ def send_chequeo_servidor_sharepoint(datos, servidor_lookup_id):
         return None
 
 if __name__ == "__main__":
-    csv_file_name = "Eventos_ayer.csv"
-    events = get_events_from_yesterday()
-    
-    # CHEQUEO SERVIDOR
+    fecha_actual = datetime.now().strftime("%d-%m-%Y")
+    csv_file_name = f"VisorEventos_{fecha_actual}.csv"
+
     try:
+        # Obtener los eventos del día anterior
+        events = get_events_from_yesterday()
+
+        # CHEQUEO SERVIDOR
         datos_sistema = get_system_data()
         print(f"Nombre del equipo actual: {nombre_equipo_actual}")
         
+        # Obtener el ID del servidor
         servidor_lookup_id = get_server_id(nombre_equipo_actual)
         print(f"ID del servidor: {servidor_lookup_id}")
+
         if servidor_lookup_id:
+            # Subir datos del chequeo del servidor a SharePoint
             chequeo_servidor_id = send_chequeo_servidor_sharepoint(datos_sistema, servidor_lookup_id)
             print(f"ID del Chequeo Servidor: {chequeo_servidor_id}")
-            
+
             if chequeo_servidor_id:
                 if events:
                     # Consolidar eventos
@@ -397,11 +439,10 @@ if __name__ == "__main__":
 
                     # Subir los eventos al visor de SharePoint asociados al chequeo del servidor
                     event_count = upload_events_to_sharepoint(consolidated_events, chequeo_servidor_id)
-                    
-                    # Crear el archivo CSV como respaldo
-                    save_events_to_csv(events, csv_file_name)
-                    print(f"Archivo CSV guardado en: {csv_file_name}")
 
+                    # Generar y subir el archivo CSV a SharePoint
+                    save_events_to_csv_and_upload(events, sharepoint_folder, csv_file_name)
+                
                     # Enviar el correo de notificación con el resumen
                     if event_count > 0:
                         send_email_notification(len(consolidated_events), error_events, critical_events)
