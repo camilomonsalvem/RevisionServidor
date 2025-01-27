@@ -253,21 +253,33 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id):
         logging.error(msg_error)
         return 0
 
-def send_email_notification(total_events, error_events, critical_events):
+def send_email_notification(total_events, error_events, critical_events, id_inventario, id_chequeo_servidor):
     try:
+        # Crear el enlace al aplicativo de PowerApps
+        powerapps_link = (
+            f"https://apps.powerapps.com/play/e/default-13fbbcde-1002-4ff4-b26f-ae75208bb81b/a/290f92a6-7699-4859-9b46-4ae1ee60b047"
+            f"?tenantId=13fbbcde-1002-4ff4-b26f-ae75208bb81b&hint=59684f0a-d15c-451a-9ffd-b73d5f5fae3a&sourcetime=1737999244624"
+            f"&screen=visor&idInventario={id_inventario}&idChequeoServidor={id_chequeo_servidor}"
+        )
+
+        # Leer la plantilla HTML
         with open("email_template.html", "r", encoding="utf-8") as file:
             html_template = file.read()
 
+        # Reemplazar variables en el HTML
         html_body = html_template.replace("{{total_events}}", str(total_events))
         html_body = html_body.replace("{{error_events}}", str(error_events))
         html_body = html_body.replace("{{critical_events}}", str(critical_events))
+        html_body = html_body.replace("{{powerapps_link}}", powerapps_link)
 
+        # Configurar el correo
         msg = MIMEMultipart("alternative")
         msg['From'] = email_sender
         msg['To'] = email_recipient
         msg['Subject'] = f"Reporte de Eventos: {total_events} procesados, {error_events} errores, {critical_events} críticos"
         msg.attach(MIMEText(html_body, "html"))
 
+        # Enviar el correo
         server = smtplib.SMTP(smtp_server, int(smtp_port))
         server.starttls()
         server.login(email_sender, email_password)
@@ -445,7 +457,14 @@ if __name__ == "__main__":
                 
                     # Enviar el correo de notificación con el resumen
                     if event_count > 0:
-                        send_email_notification(len(consolidated_events), error_events, critical_events)
+                        send_email_notification(
+                            len(consolidated_events),
+                            error_events,
+                            critical_events,
+                            servidor_lookup_id,  # idInventario
+                            chequeo_servidor_id  # idChequeoServidor
+                        )
+
                 else:
                     logging.error("No se encontraron eventos para el día anterior.")
                     print("No se encontraron eventos para el día anterior.")
