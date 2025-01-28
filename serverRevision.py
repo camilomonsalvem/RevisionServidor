@@ -24,6 +24,7 @@ logging.basicConfig(
 
 load_dotenv(".env")
 
+empresa = os.getenv("empresa")
 username = os.getenv("idt_username")
 password = os.getenv("idt_password")
 site_url = os.getenv("site_url")
@@ -177,10 +178,18 @@ def upload_csv_buffer_to_sharepoint(csv_buffer, file_name, sharepoint_folder):
         return False
 
 def consolidate_events(events):
+    """
+    Consolida los eventos, filtrando solo aquellos con niveles: Error, Crítico y Advertencia.
+    """
     consolidated = {}
 
     for event in events:
         try:
+            # Filtrar por nivel de evento (Error, Crítico, Advertencia)
+            event_type = event.Type.lower() if event.Type else ""
+            if event_type not in ["error", "critical", "warning"]:
+                continue
+
             key = (
                 event.SourceName or "Desconocido",
                 event.EventCode or 0,
@@ -259,7 +268,7 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id, log_type):
         logging.error(msg_error)
         return 0
 
-def send_email_notification(total_events, error_events, critical_events, id_inventario, id_chequeo_servidor):
+def send_email_notification(log_type, total_events, error_events, critical_events, id_inventario, id_chequeo_servidor):
     try:
         # Crear el enlace al aplicativo de PowerApps
         powerapps_link = (
@@ -278,11 +287,17 @@ def send_email_notification(total_events, error_events, critical_events, id_inve
         html_body = html_body.replace("{{critical_events}}", str(critical_events))
         html_body = html_body.replace("{{powerapps_link}}", powerapps_link)
 
+        # Obtener la fecha de ejecución
+        fecha_actual = datetime.now().strftime("%d/%m/%Y")
+
+        # Configurar el asunto del correo
+        subject = f"Reporte de Eventos de Servidor {log_type} {empresa} {fecha_actual}"
+
         # Configurar el correo
         msg = MIMEMultipart("alternative")
         msg['From'] = email_sender
         msg['To'] = email_recipient
-        msg['Subject'] = f"Reporte de Eventos: {total_events} procesados, {error_events} errores, {critical_events} críticos"
+        msg['Subject'] = subject
         msg.attach(MIMEText(html_body, "html"))
 
         # Enviar el correo
@@ -292,12 +307,13 @@ def send_email_notification(total_events, error_events, critical_events, id_inve
         server.sendmail(email_sender, email_recipient, msg.as_string())
         server.quit()
 
-        print(f"Correo de notificación enviado a {email_recipient}")
+        print(f"Correo de notificación enviado a {email_recipient} con asunto: {subject}")
 
     except Exception as e:
         msg_error = f"Error al enviar el correo de notificación: {e}"
         print(msg_error)
         logging.error(msg_error)
+
 
 # FUNCIONES PARA EL CHEQUEO SERVIDOR
 
@@ -336,7 +352,7 @@ def get_system_data():
     try:
         wmi_conn = wmi.WMI()
         os_info = wmi_conn.Win32_OperatingSystem()[0]
-        sistema_operativo = f"{os_info.Caption} {os_info.OSArchitecture}"  # Ejemplo: Windows 11 Home Single Language 64-bit
+        sistema_operativo = f"{os_info.Caption} {os_info.OSArchitecture} (Version: {os_info.Version})"  # Concatenar versión
     except Exception as e:
         msg_error = f"Error al obtener información del sistema operativo: {e}"
         print(msg_error)
@@ -356,7 +372,7 @@ def get_system_data():
         "Espacio Libre Disco I": discos.get("I:", 0),
         "Version de la Actualizacion": "1.0.0",
         "Virus Detectados": 0,
-        "Sistema Operativo": sistema_operativo,  # Sistema operativo detallado
+        "Sistema Operativo": sistema_operativo,  # Sistema operativo con versión
     }
 
     return datos
@@ -463,7 +479,8 @@ if __name__ == "__main__":
 
                         # Enviar el correo de notificación con el resumen para este tipo de registro
                         send_email_notification(
-                            event_count,         # Total de eventos procesados para este log_type
+                            log_type,
+                            event_count,
                             error_events,        # Total de eventos con errores para este log_type
                             critical_events,     # Total de eventos críticos para este log_type
                             servidor_lookup_id,  # idInventario
