@@ -274,7 +274,7 @@ def send_email_notification(log_type, total_events, error_events, critical_event
         powerapps_link = (
             f"https://apps.powerapps.com/play/e/default-13fbbcde-1002-4ff4-b26f-ae75208bb81b/a/290f92a6-7699-4859-9b46-4ae1ee60b047"
             f"?tenantId=13fbbcde-1002-4ff4-b26f-ae75208bb81b&hint=59684f0a-d15c-451a-9ffd-b73d5f5fae3a&sourcetime=1737999244624"
-            f"&screen=visor&idInventario={id_inventario}&idChequeoServidor={id_chequeo_servidor}"
+            f"&screen=visor&idInventario={id_inventario}&idChequeoServidor={id_chequeo_servidor}&nombreRegistro={log_type}"
         )
 
         # Leer la plantilla HTML
