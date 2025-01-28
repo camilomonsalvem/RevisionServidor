@@ -7,6 +7,7 @@ import time
 import psutil
 import wmi
 import io
+import subprocess
 from datetime import datetime, timedelta, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -73,33 +74,37 @@ def format_wmi_time(wmi_time):
         logging.error(msg_error)
         return "N/A"
 
-def get_events_from_yesterday(log_type):
-    bogota_tz = timezone(timedelta(hours=-5))
-    today_local = datetime.now(bogota_tz)
-    yesterday_start_local = (today_local - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
-    yesterday_end_local = (today_local - timedelta(days=1)).replace(hour=23, minute=59, second=59, microsecond=0)
+def clear_event_log(log_type):
+    try:
+        print(f"Intentando eliminar los eventos del registro '{log_type}'...")
+        # Usar wevtutil para limpiar el registro
+        subprocess.run(["wevtutil", "cl", log_type], check=True)
+        print(f"Todos los eventos del registro '{log_type}' han sido eliminados.")
+        logging.info(f"Todos los eventos del registro '{log_type}' han sido eliminados.")
+    except subprocess.CalledProcessError as e:
+        msg_error = f"Error al eliminar los eventos del registro '{log_type}': {e}"
+        print(msg_error)
+        logging.error(msg_error)
+    except Exception as e:
+        msg_error = f"Error inesperado al intentar eliminar el registro '{log_type}': {e}"
+        print(msg_error)
+        logging.error(msg_error)
 
-    yesterday_start_utc = yesterday_start_local.astimezone(timezone.utc).strftime('%Y%m%d%H%M%S.000000+000')
-    yesterday_end_utc = yesterday_end_local.astimezone(timezone.utc).strftime('%Y%m%d%H%M%S.999999+000')
-
-    print(f"Buscando eventos en '{log_type}' entre {yesterday_start_utc} y {yesterday_end_utc} (UTC)")
-    logging.info(f"Buscando eventos en '{log_type}' entre {yesterday_start_utc} y {yesterday_end_utc} (UTC)")
-
+# Modificar get_events para traer todos los eventos
+def get_all_events(log_type):
+    print(f"Obteniendo todos los eventos en el registro '{log_type}'....")
+    logging.info(f"Obteniendo todos los eventos en el registro '{log_type}'.")
     wmi_o = wmi.WMI('.')
-    query = (
-        f"SELECT * FROM Win32_NTLogEvent WHERE Logfile='{log_type}' "
-        f"AND TimeGenerated >= '{yesterday_start_utc}' AND TimeGenerated <= '{yesterday_end_utc}'"
-    )
+    query = f"SELECT * FROM Win32_NTLogEvent WHERE Logfile='{log_type}'"
 
     try:
         results = wmi_o.query(query)
         if not results:
-            print(f"No se encontraron eventos para el día anterior en '{log_type}'.")
+            print(f"No se encontraron eventos en el registro '{log_type}'.")
             return []
         return results
-
     except Exception as e:
-        msg_error = f"Error al ejecutar la consulta en '{log_type}': {e}"
+        msg_error = f"Error al obtener eventos en '{log_type}': {e}"
         print(msg_error)
         logging.error(msg_error)
         return []
@@ -440,7 +445,7 @@ if __name__ == "__main__":
             if chequeo_servidor_id:
                 # Procesar ambos tipos de registro
                 for log_type in ["System", "Application"]:
-                    events = get_events_from_yesterday(log_type)
+                    events = get_all_events(log_type)
                     if events:
                         # Consolidar eventos
                         consolidated_events = consolidate_events(events)
@@ -464,9 +469,14 @@ if __name__ == "__main__":
                             servidor_lookup_id,  # idInventario
                             chequeo_servidor_id  # idChequeoServidor
                         )
+                        print(f"Procesamiento de eventos completado para '{log_type}'.")
                     else:
-                        print(f"No se encontraron eventos para el registro '{log_type}'.")
-                        logging.info(f"No se encontraron eventos para el registro '{log_type}'.")
+                        print(f"No se encontraron eventos en el registro '{log_type}'.")
+
+                # Eliminar eventos de ambos registros solo si todo se realizó correctamente
+                for log_type in ["System", "Application"]:
+                    clear_event_log(log_type)
+
             else:
                 logging.error("No se pudo crear el Chequeo Servidor. No se subieron eventos.")
                 print("No se pudo crear el Chequeo Servidor. No se subieron eventos.")
