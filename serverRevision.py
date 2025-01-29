@@ -7,6 +7,7 @@ import time
 import psutil
 import wmi
 import io
+import subprocess
 from datetime import datetime, timedelta, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -130,6 +131,19 @@ def save_events_to_csv_and_upload(events, sharepoint_folder, file_name):
         msg_error = f"Error al generar o subir el archivo CSV: {e}"
         print(msg_error)
         logging.error(msg_error)
+
+def clear_event_log(log_name):
+    """
+    Elimina todos los eventos de un registro específico en el Visor de Eventos.
+    """
+    try:
+        print(f"Intentando eliminar eventos del registro: {log_name}")
+        subprocess.run(f"wevtutil cl \"{log_name}\"", shell=True, check=True, text=True)
+        print(f"Eventos del registro '{log_name}' eliminados correctamente.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error al eliminar los eventos del registro '{log_name}': {e}")
+    except Exception as e:
+        print(f"Error inesperado al procesar el registro '{log_name}': {e}")
 
 def upload_csv_buffer_to_sharepoint(csv_buffer, file_name, sharepoint_folder):
     try:
@@ -445,7 +459,7 @@ if __name__ == "__main__":
                         # Consolidar eventos
                         consolidated_events = consolidate_events(events)
 
-                        # Contar ítems de tipo Error y Critical en el consolidado
+                        # Contar ítems de tipo Error, Critical y Warning en el consolidado
                         error_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() == "error")
                         critical_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() == "critical")
                         warning_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() in ["warning", "advertencia"])
@@ -467,6 +481,8 @@ if __name__ == "__main__":
                                 chequeo_servidor_id,  # idChequeoServidor
                                 logfile
                             )
+                        # Limpiar el visor de eventos si todo el proceso fue exitoso
+                        clear_event_log(logfile)
                     else:
                         logging.error(f"No se encontraron eventos en el registro {logfile}.")
                         print(f"No se encontraron eventos en el registro {logfile}.")
