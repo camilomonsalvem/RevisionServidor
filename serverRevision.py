@@ -1,16 +1,17 @@
 import csv
+import io
 import logging
 import os
 import smtplib
 import socket
-import time
-import psutil
-import wmi
-import io
 import subprocess
+import time
 from datetime import datetime, timedelta, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
+import psutil
+import wmi
 from dotenv import load_dotenv
 from office365.runtime.auth.authentication_context import AuthenticationContext
 from office365.sharepoint.client_context import ClientContext
@@ -92,6 +93,7 @@ def get_all_events(logfile):
         logging.error(msg_error)
         return []
 
+# save_events_tocsv_and_upload
 def save_events_to_csv_and_upload(events, sharepoint_folder, file_name):
     headers = ["Nombre de Registro", "Origen", "ID", "Nivel", "Categoria de Tarea", "Registrado", "Equipo", "Usuario", "Mensaje", "EventRecordID"]
     try:
