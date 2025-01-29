@@ -298,7 +298,7 @@ def send_email_notification(total_events, error_events, critical_events, warning
         # Configurar el correo
         msg = MIMEMultipart("alternative")
         msg['From'] = email_sender
-        msg['To'] = email_recipient
+        msg['To'] = ", ".join(email_recipient)
         msg['Subject'] = subject  # Asunto dinámico
         msg.attach(MIMEText(html_body, "html"))
 
