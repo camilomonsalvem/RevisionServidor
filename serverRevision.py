@@ -23,6 +23,7 @@ logging.basicConfig(
 
 load_dotenv(".env")
 
+empresa = os.getenv("empresa")
 username = os.getenv("idt_username")
 password = os.getenv("idt_password")
 site_url = os.getenv("site_url")
@@ -245,7 +246,7 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id, logfile):
         logging.error(msg_error)
         return 0
 
-def send_email_notification(total_events, error_events, critical_events, id_inventario, id_chequeo_servidor, log_type):
+def send_email_notification(total_events, error_events, critical_events, warning_events, id_inventario, id_chequeo_servidor, log_type):
     try:
         # Crear el enlace al aplicativo de PowerApps
         powerapps_link = (
@@ -262,13 +263,18 @@ def send_email_notification(total_events, error_events, critical_events, id_inve
         html_body = html_template.replace("{{total_events}}", str(total_events))
         html_body = html_body.replace("{{error_events}}", str(error_events))
         html_body = html_body.replace("{{critical_events}}", str(critical_events))
+        html_body = html_body.replace("{{warning_events}}", str(warning_events))    
         html_body = html_body.replace("{{powerapps_link}}", powerapps_link)
+
+        # Construir el asunto del correo dinámicamente
+        fecha_actual = datetime.now().strftime("%d/%m/%Y")
+        subject = f"Se subió el Visor de Eventos de {empresa} - {log_type} - {fecha_actual}"
 
         # Configurar el correo
         msg = MIMEMultipart("alternative")
         msg['From'] = email_sender
         msg['To'] = email_recipient
-        msg['Subject'] = f"Reporte de Eventos: {total_events} procesados, {error_events} errores, {critical_events} críticos"
+        msg['Subject'] = subject  # Asunto dinámico
         msg.attach(MIMEText(html_body, "html"))
 
         # Enviar el correo
@@ -442,6 +448,7 @@ if __name__ == "__main__":
                         # Contar ítems de tipo Error y Critical en el consolidado
                         error_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() == "error")
                         critical_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() == "critical")
+                        warning_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() in ["warning", "advertencia"])
 
                         # Subir los eventos al visor de SharePoint asociados al chequeo del servidor
                         event_count = upload_events_to_sharepoint(consolidated_events, chequeo_servidor_id, logfile)
@@ -455,6 +462,7 @@ if __name__ == "__main__":
                                 len(consolidated_events),
                                 error_events,
                                 critical_events,
+                                warning_events,
                                 servidor_lookup_id,  # idInventario
                                 chequeo_servidor_id,  # idChequeoServidor
                                 logfile
