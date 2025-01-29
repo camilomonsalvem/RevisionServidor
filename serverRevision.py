@@ -207,7 +207,13 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id, logfile):
         list_obj = ctx.web.lists.get_by_title(list_name_visor_eventos)
         event_count = 0
 
-        for event in events:
+        # Filtrar eventos por nivel en inglés y español
+        filtered_events = [
+            event for event in events if (event['Type'] or "").lower() in 
+            ['error', 'critical', 'warning', 'crítico', 'advertencia']
+        ]
+
+        for event in filtered_events:
             try:
                 item_properties = {
                     'Title': logfile,  # Log type as the title
@@ -219,7 +225,7 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id, logfile):
                     'Nivel': event['Type'] or "N/A",
                     'User': event['User'] or "N/A",
                     'No_x0020_de_x0020_Eventos': event['NoEventos'] or 0,
-                    'ID_x0020_Chequeo_x0020_ServidorId': chequeo_servidor_id  # Nota: "_Id" al final
+                    'ID_x0020_Chequeo_x0020_ServidorId': chequeo_servidor_id
                 }
                 list_obj.add_item(item_properties)
                 ctx.execute_query()
