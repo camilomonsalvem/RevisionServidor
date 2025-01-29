@@ -328,7 +328,7 @@ def get_system_data():
     try:
         wmi_conn = wmi.WMI()
         os_info = wmi_conn.Win32_OperatingSystem()[0]
-        sistema_operativo = f"{os_info.Caption} {os_info.OSArchitecture}"  # Ejemplo: Windows 11 Home Single Language 64-bit
+        sistema_operativo = f"{os_info.Caption} {os_info.Version} {os_info.OSArchitecture}"  # Ejemplo: Windows 11 10.0.19043 64-bit
     except Exception as e:
         msg_error = f"Error al obtener información del sistema operativo: {e}"
         print(msg_error)
@@ -348,7 +348,7 @@ def get_system_data():
         "Espacio Libre Disco I": discos.get("I:", 0),
         "Version de la Actualizacion": "1.0.0",
         "Virus Detectados": 0,
-        "Sistema Operativo": sistema_operativo,  # Sistema operativo detallado
+        "Sistema Operativo": sistema_operativo,  # Sistema operativo y versión concatenados
     }
 
     return datos
