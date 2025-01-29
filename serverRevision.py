@@ -73,28 +73,17 @@ def format_wmi_time(wmi_time):
         logging.error(msg_error)
         return "N/A"
 
-def get_events_from_yesterday():
-    bogota_tz = timezone(timedelta(hours=-5))
-    today_local = datetime.now(bogota_tz)
-    yesterday_start_local = (today_local - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
-    yesterday_end_local = (today_local - timedelta(days=1)).replace(hour=23, minute=59, second=59, microsecond=0)
-
-    yesterday_start_utc = yesterday_start_local.astimezone(timezone.utc).strftime('%Y%m%d%H%M%S.000000+000')
-    yesterday_end_utc = yesterday_end_local.astimezone(timezone.utc).strftime('%Y%m%d%H%M%S.999999+000')
-
-    print(f"Buscando eventos entre {yesterday_start_utc} y {yesterday_end_utc} (UTC)")
-    logging.info(f"Buscando eventos entre {yesterday_start_utc} y {yesterday_end_utc} (UTC)")
+def get_all_events():
+    print("Obteniendo todos los eventos del visor de eventos ...")
+    logging.info("Obteniendo todos los eventos del visor de eventos ...")
 
     wmi_o = wmi.WMI('.')
-    query = (
-        f"SELECT * FROM Win32_NTLogEvent WHERE Logfile='System' "
-        f"AND TimeGenerated >= '{yesterday_start_utc}' AND TimeGenerated <= '{yesterday_end_utc}'"
-    )
+    query = "SELECT * FROM Win32_NTLogEvent WHERE Logfile='System'"
 
     try:
         results = wmi_o.query(query)
         if not results:
-            print("No se encontraron eventos para el día anterior.")
+            print("No se encontraron eventos en el visor de eventos.")
             return []
         return results
 
@@ -425,7 +414,7 @@ if __name__ == "__main__":
 
     try:
         # Obtener los eventos del día anterior
-        events = get_events_from_yesterday()
+        events = get_all_events()
 
         # CHEQUEO SERVIDOR
         datos_sistema = get_system_data()
