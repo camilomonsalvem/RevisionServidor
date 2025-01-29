@@ -77,40 +77,40 @@
         <img alt="" border="0" width="450" src="https://www.idtechnologysas.com/images/ID_Transparente.png"/>
     </a>
 
-	<div class="content">
-		<h3 style="text-align: center">Reporte de Eventos Procesados</h3>
-		<h4 style="text-align: center">Medellín</h4>
-	
-		<p>¡Hola!,</p>
-		<p>Se ha completado el proceso de revisión de eventos. A continuación, se presenta el resumen del resultado:</p> 
-		
-		<table>
-			<thead>
-				<tr>
-					<th>Descripción</th>
-					<th>Cantidad</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Total de eventos procesados</td>
-					<td>{{total_events}}</td>
-				</tr>
-				<tr>
-					<td>Eventos con errores (nivel "Error")</td>
-					<td>{{error_events}}</td>
-				</tr>
-				<tr>
-					<td>Eventos críticos (nivel "Critical")</td>
-					<td>{{critical_events}}</td>
-				</tr>
-			</tbody>
-		</table>
-	
-		<p>Por favor, revisa los detalles en el portal de SharePoint.</p>
-		<p>También puedes acceder al aplicativo de PowerApps desde el siguiente enlace:</p>
-		<p><a href="{{powerapps_link}}" target="_blank">Abrir PowerApps</a></p>
-	</div>
+<div class="content">
+    <h3 style="text-align: center">Reporte de Eventos Procesados</h3>
+    <h4 style="text-align: center">Medellín</h4>
+
+    <p>¡Hola!,</p>
+    <p>Se ha completado el proceso de revisión de eventos. A continuación, se presenta el resumen del resultado:</p> 
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Eventos con errores (nivel "Error")</td>
+                <td>{{error_events}}</td>
+            </tr>
+            <tr>
+                <td>Eventos críticos (nivel "Critical")</td>
+                <td>{{critical_events}}</td>
+            </tr>
+            <tr>
+                <td>Eventos con advertencias (nivel "Warning")</td>
+                <td>{{warning_events}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Por favor, revisa los detalles en el portal de SharePoint.</p>
+    <p>También puedes acceder al aplicativo de PowerApps desde el siguiente enlace:</p>
+    <p><a href="{{powerapps_link}}" target="_blank">Abrir PowerApps</a></p>
+</div>
 
     <br>
     <p class="footer">ID TECHNOLOGY SAS</p>

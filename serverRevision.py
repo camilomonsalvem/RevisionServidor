@@ -1,16 +1,17 @@
 import csv
+import io
 import logging
 import os
 import smtplib
 import socket
-import time
-import psutil
-import wmi
-import io
 import subprocess
+import time
 from datetime import datetime, timedelta, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
+import psutil
+import wmi
 from dotenv import load_dotenv
 from office365.runtime.auth.authentication_context import AuthenticationContext
 from office365.sharepoint.client_context import ClientContext
@@ -24,6 +25,7 @@ logging.basicConfig(
 
 load_dotenv(".env")
 
+empresa = os.getenv("empresa")
 empresa = os.getenv("empresa")
 username = os.getenv("idt_username")
 password = os.getenv("idt_password")
@@ -173,10 +175,18 @@ def upload_csv_buffer_to_sharepoint(csv_buffer, file_name, sharepoint_folder):
         return False
 
 def consolidate_events(events):
+    """
+    Consolida los eventos, filtrando solo aquellos con niveles: Error, Crítico y Advertencia.
+    """
     consolidated = {}
 
     for event in events:
         try:
+            # Filtrar por nivel de evento (Error, Crítico, Advertencia)
+            event_type = event.Type.lower() if event.Type else ""
+            if event_type not in ["error", "critical", "warning"]:
+                continue
+
             key = (
                 event.SourceName or "Desconocido",
                 event.Type or "Desconocido",
@@ -247,15 +257,15 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id, logfile):
                 event_count += 1
                 time.sleep(0.5)
             except Exception as e:
-                msg_error = f"Error al cargar el evento {event.get('EventRecordID', 'Desconocido')}: {e}"
+                msg_error = f"Error al cargar el evento {event.get('EventRecordID', 'Desconocido')} del registro {log_type}: {e}"
                 print(msg_error)
                 logging.error(msg_error)
 
-        print(f"Total de eventos cargados a SharePoint: {event_count}")
+        print(f"Total de eventos cargados a SharePoint para {log_type}: {event_count}")
         return event_count
 
     except Exception as e:
-        msg_error = f"Error al subir los eventos a SharePoint: {e}"
+        msg_error = f"Error al subir los eventos a SharePoint para {log_type}: {e}"
         print(msg_error)
         logging.error(msg_error)
         return 0
@@ -266,6 +276,7 @@ def send_email_notification(total_events, error_events, critical_events, warning
         powerapps_link = (
             f"https://apps.powerapps.com/play/e/default-13fbbcde-1002-4ff4-b26f-ae75208bb81b/a/290f92a6-7699-4859-9b46-4ae1ee60b047"
             f"?tenantId=13fbbcde-1002-4ff4-b26f-ae75208bb81b&hint=59684f0a-d15c-451a-9ffd-b73d5f5fae3a&sourcetime=1737999244624"
+            f"&screen=visor&idInventario={id_inventario}&idChequeoServidor={id_chequeo_servidor}&nombreRegistro={log_type}"
             f"&screen=visor&idInventario={id_inventario}&idChequeoServidor={id_chequeo_servidor}&nombreRegistro={log_type}"
         )
 
@@ -298,12 +309,13 @@ def send_email_notification(total_events, error_events, critical_events, warning
         server.sendmail(email_sender, email_recipient, msg.as_string())
         server.quit()
 
-        print(f"Correo de notificación enviado a {email_recipient}")
+        print(f"Correo de notificación enviado a {email_recipient} con asunto: {subject}")
 
     except Exception as e:
         msg_error = f"Error al enviar el correo de notificación: {e}"
         print(msg_error)
         logging.error(msg_error)
+
 
 # FUNCIONES PARA EL CHEQUEO SERVIDOR
 

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<title>Reporte de Eventos</title>
+	<style>
+		body {
+			background-color: white;
+		}
+		.container {
+			max-width: 1000px;
+			padding: 30px;
+			margin: 0 auto;
+			border-collapse: collapse;
+			background-color: #ecf0f1;
+		}
+		.header, .footer {
+			color: #808080;
+			font-size: 12px;
+			text-align: center;
+			margin: 15px 0;
+		}
+		.logo {
+			display: block;
+			padding: 1em 0;
+			text-align: center;
+			margin: 10px 50px;
+		}
+		.content {
+			color: #34495e;
+			margin: 4% 10% 2%;
+			text-align: justify;
+			font-family: sans-serif;
+		}
+		.footer-content {
+			background-color: #F28B30;
+			color: #ffffff;
+			margin: 4%;
+			padding: 20px;
+			font-size: 20px;
+			border-radius: 5px;
+			text-align: center;
+		}
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			margin-top: 20px;
+		}
+		table td, table th {
+			border: 1px solid #AAAAAA;
+			padding: 3px 10px;
+		}
+		table tr:nth-child(even) {
+			background: #D9E1F2;
+		}
+		table thead {
+			background: #007F34;
+		}
+		table thead th {
+			font-size: 15px;
+			font-weight: bold;
+			color: #FFFFFF;
+			text-align: left;
+		}
+		table tfoot {
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+
+<div class="container">
+	<p class="header">FAVOR NO RESPONDER ESTE MENSAJE</p>
+	<p class="header">Este mensaje es generado por un servicio automatizado de monitoreo</p>
+	
+	<a href="https://www.idtechnologysas.com/" class="logo">
+		<img alt="" border="0" width="450" src="https://www.idtechnologysas.com/images/ID_Transparente.png"/>
+	</a>
+
+	<div class="content">
+		<h3 style="text-align: center">Reporte de Eventos Procesados</h3>
+		<h4 style="text-align: center">Medellín</h4>
+	
+		<p>¡Hola!,</p>
+		<p>Se ha completado el proceso de revisión de eventos. A continuación, se presenta el resumen del resultado:</p> 
+		
+		<table>
+			<thead>
+				<tr>
+					<th>Descripción</th>
+					<th>Cantidad</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Total de eventos procesados</td>
+					<td>{{total_events}}</td>
+				</tr>
+				<tr>
+					<td>Eventos con errores (nivel "Error")</td>
+					<td>{{error_events}}</td>
+				</tr>
+				<tr>
+					<td>Eventos críticos (nivel "Critical")</td>
+					<td>{{critical_events}}</td>
+				</tr>
+			</tbody>
+		</table>
+	
+		<p>Por favor, revisa los detalles en el portal de SharePoint.</p>
+		<p>También puedes acceder al aplicativo de PowerApps desde el siguiente enlace:</p>
+		<p><a href="{{powerapps_link}}" target="_blank">Abrir PowerApps</a></p>
+	</div>
+
+	<br>
+	<p class="footer">ID TECHNOLOGY SAS</p>
+</div>
+
+</body>
+</html>
