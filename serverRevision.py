@@ -265,6 +265,9 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id, logfile):
         logging.error(msg_error)
         return 0
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+email_template_path = os.path.join(script_dir, "email_template.html")
+
 def send_email_notification(total_events, error_events, critical_events, warning_events, id_inventario, id_chequeo_servidor, log_type):
     try:
         # Crear el enlace al aplicativo de PowerApps
@@ -275,8 +278,11 @@ def send_email_notification(total_events, error_events, critical_events, warning
         )
 
         # Leer la plantilla HTML
-        with open("email_template.html", "r", encoding="utf-8") as file:
-            html_template = file.read()
+        try:
+            with open(email_template_path, "r", encoding="utf-8") as file:
+                html_template = file.read()
+        except FileNotFoundError:
+            print(f"Error: email_template.html not found at {email_template_path}")
 
         # Reemplazar variables en el HTML
         html_body = html_template.replace("{{total_events}}", str(total_events))
