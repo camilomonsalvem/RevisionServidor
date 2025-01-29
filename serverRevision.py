@@ -164,8 +164,8 @@ def consolidate_events(events):
         try:
             key = (
                 event.SourceName or "Desconocido",
-                event.EventCode or 0,
-                getattr(event, "CategoryString", "Ninguno")
+                event.Type or "Desconocido",
+                event.EventCode or "Desconocido"
             )
             full_message = (event.Message or "").strip()
             if hasattr(event, "StringInserts") and event.StringInserts:
