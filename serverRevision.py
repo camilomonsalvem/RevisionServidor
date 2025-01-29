@@ -73,22 +73,19 @@ def format_wmi_time(wmi_time):
         logging.error(msg_error)
         return "N/A"
 
-def get_all_events():
-    print("Obteniendo todos los eventos del visor de eventos ...")
-    logging.info("Obteniendo todos los eventos del visor de eventos ...")
+def get_all_events(logfile):
+    print(f"Obteniendo eventos del registro: {logfile}")
+    logging.info(f"Obteniendo eventos del registro: {logfile}")
 
     wmi_o = wmi.WMI('.')
-    query = "SELECT * FROM Win32_NTLogEvent WHERE Logfile='System'"
-
+    query = f"SELECT * FROM Win32_NTLogEvent WHERE Logfile='{logfile}'"
     try:
         results = wmi_o.query(query)
-        if not results:
-            print("No se encontraron eventos en el visor de eventos.")
-            return []
+        print(f"Eventos obtenidos del registro {logfile}: {len(results)}")
+        logging.info(f"Eventos obtenidos del registro {logfile}: {len(results)}")
         return results
-
     except Exception as e:
-        msg_error = f"Error al ejecutar la consulta: {e}"
+        msg_error = f"Error al ejecutar la consulta para {logfile}: {e}"
         print(msg_error)
         logging.error(msg_error)
         return []
@@ -195,7 +192,7 @@ def consolidate_events(events):
 
     return list(consolidated.values())
 
-def upload_events_to_sharepoint(events, chequeo_servidor_id):
+def upload_events_to_sharepoint(events, chequeo_servidor_id, logfile):
     try:
         ctx_auth = AuthenticationContext(site_url)
         if ctx_auth.acquire_token_for_user(username, password):
@@ -213,7 +210,7 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id):
         for event in events:
             try:
                 item_properties = {
-                    'Title': event['SourceName'] or "Desconocido",
+                    'Title': logfile,  # Log type as the title
                     'Id_x0020_del_x0020_Evento': str(event['EventCode'] or 0),
                     'Origen': event['SourceName'] or "Desconocido",
                     'Categoria_x0020_de_x0020_Tarea': event['CategoryString'] or "Ninguno",
@@ -410,19 +407,13 @@ def send_chequeo_servidor_sharepoint(datos, servidor_lookup_id):
 
 if __name__ == "__main__":
     fecha_actual = datetime.now().strftime("%d-%m-%Y")
-    csv_file_name = f"VisorEventos_{fecha_actual}.csv"
 
     try:
-        # Obtener los eventos del día anterior
-        events = get_all_events()
-
         # CHEQUEO SERVIDOR
         datos_sistema = get_system_data()
-        print(f"Nombre del equipo actual: {nombre_equipo_actual}")
-        
+
         # Obtener el ID del servidor
         servidor_lookup_id = get_server_id(nombre_equipo_actual)
-        print(f"ID del servidor: {servidor_lookup_id}")
 
         if servidor_lookup_id:
             # Subir datos del chequeo del servidor a SharePoint
@@ -430,33 +421,40 @@ if __name__ == "__main__":
             print(f"ID del Chequeo Servidor: {chequeo_servidor_id}")
 
             if chequeo_servidor_id:
-                if events:
-                    # Consolidar eventos
-                    consolidated_events = consolidate_events(events)
+                logfiles = ['System', 'Application']  # Lista de registros a procesar
+                for logfile in logfiles:
+                    print(f"Procesando eventos del registro: {logfile}")
+                    csv_file_name = f"VisorEventos_{logfile}_{fecha_actual}.csv"
 
-                    # Contar ítems de tipo Error y Critical en el consolidado
-                    error_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() == "error")
-                    critical_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() == "critical")
+                    # Obtener eventos para el registro actual
+                    events = get_all_events(logfile)
 
-                    # Subir los eventos al visor de SharePoint asociados al chequeo del servidor
-                    event_count = upload_events_to_sharepoint(consolidated_events, chequeo_servidor_id)
+                    if events:
+                        # Consolidar eventos
+                        consolidated_events = consolidate_events(events)
 
-                    # Generar y subir el archivo CSV a SharePoint
-                    save_events_to_csv_and_upload(events, sharepoint_folder, csv_file_name)
-                
-                    # Enviar el correo de notificación con el resumen
-                    if event_count > 0:
-                        send_email_notification(
-                            len(consolidated_events),
-                            error_events,
-                            critical_events,
-                            servidor_lookup_id,  # idInventario
-                            chequeo_servidor_id  # idChequeoServidor
-                        )
+                        # Contar ítems de tipo Error y Critical en el consolidado
+                        error_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() == "error")
+                        critical_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() == "critical")
 
-                else:
-                    logging.error("No se encontraron eventos para el día anterior.")
-                    print("No se encontraron eventos para el día anterior.")
+                        # Subir los eventos al visor de SharePoint asociados al chequeo del servidor
+                        event_count = upload_events_to_sharepoint(consolidated_events, chequeo_servidor_id, logfile)
+
+                        # Generar y subir el archivo CSV a SharePoint
+                        save_events_to_csv_and_upload(events, sharepoint_folder, csv_file_name)
+
+                        # Enviar el correo de notificación con el resumen
+                        if event_count > 0:
+                            send_email_notification(
+                                len(consolidated_events),
+                                error_events,
+                                critical_events,
+                                servidor_lookup_id,  # idInventario
+                                chequeo_servidor_id  # idChequeoServidor
+                            )
+                    else:
+                        logging.error(f"No se encontraron eventos en el registro {logfile}.")
+                        print(f"No se encontraron eventos en el registro {logfile}.")
             else:
                 logging.error("No se pudo crear el Chequeo Servidor. No se subieron eventos.")
                 print("No se pudo crear el Chequeo Servidor. No se subieron eventos.")
