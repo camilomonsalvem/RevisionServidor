@@ -1,5 +1,6 @@
 import subprocess
 
+
 def clear_event_log(log_name):
     """
     Elimina todos los eventos de un registro específico en el Visor de Eventos.
