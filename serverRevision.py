@@ -23,7 +23,10 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(filename)s - Line %(lineno)d: %(message)s"
 )
 
-load_dotenv(".env")
+script_dir = os.path.dirname(os.path.abspath(__file__))  # Get the script directory
+env_path = os.path.join(script_dir, ".env")
+
+load_dotenv(env_path)
 
 empresa = os.getenv("empresa")
 username = os.getenv("idt_username")
