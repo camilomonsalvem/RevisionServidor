@@ -94,6 +94,7 @@ def get_all_events(logfile):
         logging.error(msg_error)
         return []
 
+# save_events_tocsv_and_upload
 def save_events_to_csv_and_upload(events, sharepoint_folder, file_name):
     headers = ["Nombre de Registro", "Origen", "ID", "Nivel", "Categoria de Tarea", "Registrado", "Equipo", "Usuario", "Mensaje", "EventRecordID"]
     try:
