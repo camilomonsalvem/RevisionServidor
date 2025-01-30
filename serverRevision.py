@@ -9,7 +9,6 @@ import time
 from datetime import datetime, timedelta, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
 import psutil
 import wmi
 from dotenv import load_dotenv
@@ -48,7 +47,7 @@ smtp_server = os.getenv("smtp_server")
 smtp_port = os.getenv("smtp_port")
 email_sender = os.getenv("email_sender")
 email_password = os.getenv("email_password")
-email_recipient = os.getenv("email_recipient")
+email_recipients = os.getenv("email_recipients").split(',')
 
 # Configuración de SharePoint Soporte Tecnico para archivo CSV
 site_url_soporte = os.getenv("site_url_soporte")
@@ -145,10 +144,13 @@ def clear_event_log(log_name):
         print(f"Intentando eliminar eventos del registro: {log_name}")
         subprocess.run(f"wevtutil cl \"{log_name}\"", shell=True, check=True, text=True)
         print(f"Eventos del registro '{log_name}' eliminados correctamente.")
+        logging.info(f"Eventos del registro '{log_name}' eliminados correctamente.")
     except subprocess.CalledProcessError as e:
         print(f"Error al eliminar los eventos del registro '{log_name}': {e}")
+        logging.error(f"Error al eliminar los eventos del registro '{log_name}': {e}")
     except Exception as e:
         print(f"Error inesperado al procesar el registro '{log_name}': {e}")
+        logging.error(f"Error inesperado al procesar el registro '{log_name}': {e}")
 
 def upload_csv_buffer_to_sharepoint(csv_buffer, file_name, sharepoint_folder):
     try:
@@ -270,46 +272,41 @@ email_template_path = os.path.join(script_dir, "email_template.html")
 
 def send_email_notification(total_events, error_events, critical_events, warning_events, id_inventario, id_chequeo_servidor, log_type):
     try:
-        # Crear el enlace al aplicativo de PowerApps
         powerapps_link = (
             f"https://apps.powerapps.com/play/e/default-13fbbcde-1002-4ff4-b26f-ae75208bb81b/a/290f92a6-7699-4859-9b46-4ae1ee60b047"
             f"?tenantId=13fbbcde-1002-4ff4-b26f-ae75208bb81b&hint=59684f0a-d15c-451a-9ffd-b73d5f5fae3a&sourcetime=1737999244624"
             f"&screen=visor&idInventario={id_inventario}&idChequeoServidor={id_chequeo_servidor}&nombreRegistro={log_type}"
         )
 
-        # Leer la plantilla HTML
         try:
             with open(email_template_path, "r", encoding="utf-8") as file:
                 html_template = file.read()
         except FileNotFoundError:
             print(f"Error: email_template.html not found at {email_template_path}")
+            return
 
-        # Reemplazar variables en el HTML
         html_body = html_template.replace("{{total_events}}", str(total_events))
         html_body = html_body.replace("{{error_events}}", str(error_events))
         html_body = html_body.replace("{{critical_events}}", str(critical_events))
         html_body = html_body.replace("{{warning_events}}", str(warning_events))    
         html_body = html_body.replace("{{powerapps_link}}", powerapps_link)
 
-        # Construir el asunto del correo dinámicamente
         fecha_actual = datetime.now().strftime("%d/%m/%Y")
         subject = f"Se subió el Visor de Eventos de {empresa} - {log_type} - {fecha_actual}"
 
-        # Configurar el correo
         msg = MIMEMultipart("alternative")
         msg['From'] = email_sender
-        msg['To'] = ", ".join(email_recipient)
-        msg['Subject'] = subject  # Asunto dinámico
+        msg['To'] = ", ".join(email_recipients)  # Mostrar los correos como cadena
+        msg['Subject'] = subject  
         msg.attach(MIMEText(html_body, "html"))
 
-        # Enviar el correo
         server = smtplib.SMTP(smtp_server, int(smtp_port))
         server.starttls()
         server.login(email_sender, email_password)
-        server.sendmail(email_sender, email_recipient, msg.as_string())
+        server.sendmail(email_sender, email_recipients, msg.as_string())  # Pasar la lista real
         server.quit()
 
-        print(f"Correo de notificación enviado a {email_recipient}")
+        print(f"Correo de notificación enviado a {', '.join(email_recipients)}")
 
     except Exception as e:
         msg_error = f"Error al enviar el correo de notificación: {e}"
@@ -461,7 +458,7 @@ if __name__ == "__main__":
                 logfiles = ['System', 'Application']  # Lista de registros a procesar
                 for logfile in logfiles:
                     print(f"Procesando eventos del registro: {logfile}")
-                    csv_file_name = f"VisorEventos_{logfile}_{fecha_actual}.csv"
+                    csv_file_name = f"VisorEventos_{logfile}_{fecha_actual}_{chequeo_servidor_id}.csv"
 
                     # Obtener eventos para el registro actual
                     events = get_all_events(logfile)
