@@ -488,3 +488,177 @@
 2025-02-03 22:04:58,522 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/SoporteTecnico813/_api/Web/getFolderByServerRelativeUrl('%2Fsites%2FSoporteTecnico813%2FDocumentos%20compartidos%2FConstrusol%2FVisor%20de%20Eventos')/Files/add(overwrite=true,url='VisorEventos_Security_03-02-2025_156.csv') HTTP/11" 200 None
 2025-02-03 22:04:59,206 - INFO - serverRevision.py - Line 175: Archivo VisorEventos_Security_03-02-2025_156.csv subido exitosamente a SharePoint en /sites/SoporteTecnico813/Documentos compartidos/Construsol/Visor de Eventos.
 2025-02-03 22:04:59,207 - INFO - serverRevision.py - Line 522: Archivo CSV generado y subido exitosamente a SharePoint.
+2025-02-04 13:23:48,065 - DEBUG - saml_token_provider.py - Line 103: get_authentication_cookie called
+2025-02-04 13:23:48,067 - DEBUG - saml_token_provider.py - Line 106: Acquiring Access Token..
+2025-02-04 13:23:48,067 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:23:48,595 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /GetUserRealm.srf HTTP/11" 200 240
+2025-02-04 13:23:48,595 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:23:49,255 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /extSTS.srf HTTP/11" 200 3538
+2025-02-04 13:23:49,255 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:23:49,875 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /_forms/default.aspx?wa=wsignin1.0 HTTP/11" 302 118
+2025-02-04 13:23:50,005 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET / HTTP/11" 302 139
+2025-02-04 13:23:51,128 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET /SitePages/Inicio.aspx HTTP/11" 200 None
+2025-02-04 13:23:51,342 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:23:51,938 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/contextInfo HTTP/11" 200 None
+2025-02-04 13:23:51,942 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:23:52,435 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Inventario%20PC%20Construsol')/GetItems HTTP/11" 200 None
+2025-02-04 13:23:52,460 - DEBUG - saml_token_provider.py - Line 103: get_authentication_cookie called
+2025-02-04 13:23:52,460 - DEBUG - saml_token_provider.py - Line 106: Acquiring Access Token..
+2025-02-04 13:23:52,462 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:23:52,903 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /GetUserRealm.srf HTTP/11" 200 240
+2025-02-04 13:23:52,903 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:23:53,521 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /extSTS.srf HTTP/11" 200 3538
+2025-02-04 13:23:53,521 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:23:53,936 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /_forms/default.aspx?wa=wsignin1.0 HTTP/11" 302 118
+2025-02-04 13:23:54,079 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET / HTTP/11" 302 139
+2025-02-04 13:23:55,043 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET /SitePages/Inicio.aspx HTTP/11" 200 None
+2025-02-04 13:23:55,255 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:23:55,634 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Chequeo%20Servidor%20Construsol')?$select=ListItemEntityTypeFullName,Id HTTP/11" 200 None
+2025-02-04 13:23:55,637 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:23:55,996 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/contextInfo HTTP/11" 200 None
+2025-02-04 13:23:56,004 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:23:56,635 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Chequeo%20Servidor%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:23:56,640 - INFO - serverRevision.py - Line 84: Obteniendo eventos del registro: System
+2025-02-04 13:23:58,286 - INFO - serverRevision.py - Line 91: Eventos obtenidos del registro System: 466
+2025-02-04 13:23:58,483 - INFO - serverRevision.py - Line 148: Eventos del registro 'System' eliminados correctamente.
+2025-02-04 13:23:59,480 - INFO - serverRevision.py - Line 223: Autenticación exitosa
+2025-02-04 13:23:59,480 - DEBUG - saml_token_provider.py - Line 103: get_authentication_cookie called
+2025-02-04 13:23:59,480 - DEBUG - saml_token_provider.py - Line 106: Acquiring Access Token..
+2025-02-04 13:23:59,480 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:24:00,011 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /GetUserRealm.srf HTTP/11" 200 238
+2025-02-04 13:24:00,013 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:24:00,601 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /extSTS.srf HTTP/11" 200 3538
+2025-02-04 13:24:00,601 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:01,069 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /_forms/default.aspx?wa=wsignin1.0 HTTP/11" 302 118
+2025-02-04 13:24:01,221 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET / HTTP/11" 302 139
+2025-02-04 13:24:01,629 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET /SitePages/Inicio.aspx HTTP/11" 200 None
+2025-02-04 13:24:01,841 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:02,205 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')?$select=ListItemEntityTypeFullName,Id HTTP/11" 200 None
+2025-02-04 13:24:02,211 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:02,573 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/contextInfo HTTP/11" 200 None
+2025-02-04 13:24:02,575 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:03,166 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:03,676 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:04,206 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:04,717 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:05,241 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:05,755 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:06,286 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:06,796 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:07,575 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:08,085 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:08,601 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:09,110 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:09,601 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:10,113 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:10,576 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:11,086 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:11,565 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:12,076 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:12,675 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:13,186 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:13,711 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:14,220 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:14,756 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:15,268 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:15,778 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:16,287 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:16,798 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:17,308 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:17,786 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:19,086 - INFO - serverRevision.py - Line 162: Autenticación exitosa para subir el archivo CSV.
+2025-02-04 13:24:19,232 - DEBUG - saml_token_provider.py - Line 103: get_authentication_cookie called
+2025-02-04 13:24:19,232 - DEBUG - saml_token_provider.py - Line 106: Acquiring Access Token..
+2025-02-04 13:24:19,234 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:24:19,736 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /GetUserRealm.srf HTTP/11" 200 238
+2025-02-04 13:24:19,746 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:24:20,427 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /extSTS.srf HTTP/11" 200 3538
+2025-02-04 13:24:20,427 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:20,876 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /_forms/default.aspx?wa=wsignin1.0 HTTP/11" 302 118
+2025-02-04 13:24:21,026 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET / HTTP/11" 302 139
+2025-02-04 13:24:21,972 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET /SitePages/Inicio.aspx HTTP/11" 200 None
+2025-02-04 13:24:22,225 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:22,783 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/SoporteTecnico813/_api/contextInfo HTTP/11" 200 None
+2025-02-04 13:24:22,789 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:23,655 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/SoporteTecnico813/_api/Web/getFolderByServerRelativeUrl('%2Fsites%2FSoporteTecnico813%2FDocumentos%20compartidos%2FConstrusol%2FVisor%20de%20Eventos')/Files/add(overwrite=true,url='VisorEventos_System_04-02-2025_157.csv') HTTP/11" 200 None
+2025-02-04 13:24:23,670 - INFO - serverRevision.py - Line 175: Archivo VisorEventos_System_04-02-2025_157.csv subido exitosamente a SharePoint en /sites/SoporteTecnico813/Documentos compartidos/Construsol/Visor de Eventos.
+2025-02-04 13:24:23,670 - INFO - serverRevision.py - Line 522: Archivo CSV generado y subido exitosamente a SharePoint.
+2025-02-04 13:24:27,798 - INFO - serverRevision.py - Line 84: Obteniendo eventos del registro: Application
+2025-02-04 13:24:29,109 - INFO - serverRevision.py - Line 91: Eventos obtenidos del registro Application: 121
+2025-02-04 13:24:29,365 - INFO - serverRevision.py - Line 148: Eventos del registro 'Application' eliminados correctamente.
+2025-02-04 13:24:29,625 - INFO - serverRevision.py - Line 223: Autenticación exitosa
+2025-02-04 13:24:29,625 - DEBUG - saml_token_provider.py - Line 103: get_authentication_cookie called
+2025-02-04 13:24:29,625 - DEBUG - saml_token_provider.py - Line 106: Acquiring Access Token..
+2025-02-04 13:24:29,625 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:24:30,146 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /GetUserRealm.srf HTTP/11" 200 238
+2025-02-04 13:24:30,147 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:24:30,673 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /extSTS.srf HTTP/11" 200 3538
+2025-02-04 13:24:30,675 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:31,120 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /_forms/default.aspx?wa=wsignin1.0 HTTP/11" 302 118
+2025-02-04 13:24:31,250 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET / HTTP/11" 302 139
+2025-02-04 13:24:32,155 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET /SitePages/Inicio.aspx HTTP/11" 200 None
+2025-02-04 13:24:32,395 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:32,795 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')?$select=ListItemEntityTypeFullName,Id HTTP/11" 200 None
+2025-02-04 13:24:32,805 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:33,185 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/contextInfo HTTP/11" 200 None
+2025-02-04 13:24:33,188 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:33,769 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:34,281 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:34,805 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:35,318 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:35,824 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/Bk-Empresas/_api/Web/lists/GetByTitle('Visor%20de%20Eventos%20Construsol')/items HTTP/11" 201 None
+2025-02-04 13:24:36,575 - INFO - serverRevision.py - Line 162: Autenticación exitosa para subir el archivo CSV.
+2025-02-04 13:24:36,582 - DEBUG - saml_token_provider.py - Line 103: get_authentication_cookie called
+2025-02-04 13:24:36,582 - DEBUG - saml_token_provider.py - Line 106: Acquiring Access Token..
+2025-02-04 13:24:36,582 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:24:37,077 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /GetUserRealm.srf HTTP/11" 200 240
+2025-02-04 13:24:37,079 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:24:37,719 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /extSTS.srf HTTP/11" 200 3538
+2025-02-04 13:24:37,720 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:38,175 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /_forms/default.aspx?wa=wsignin1.0 HTTP/11" 302 118
+2025-02-04 13:24:38,310 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET / HTTP/11" 302 139
+2025-02-04 13:24:39,378 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET /SitePages/Inicio.aspx HTTP/11" 200 None
+2025-02-04 13:24:39,587 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:40,195 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/SoporteTecnico813/_api/contextInfo HTTP/11" 200 None
+2025-02-04 13:24:40,200 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:40,808 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/SoporteTecnico813/_api/Web/getFolderByServerRelativeUrl('%2Fsites%2FSoporteTecnico813%2FDocumentos%20compartidos%2FConstrusol%2FVisor%20de%20Eventos')/Files/add(overwrite=true,url='VisorEventos_Application_04-02-2025_157.csv') HTTP/11" 200 None
+2025-02-04 13:24:40,818 - INFO - serverRevision.py - Line 175: Archivo VisorEventos_Application_04-02-2025_157.csv subido exitosamente a SharePoint en /sites/SoporteTecnico813/Documentos compartidos/Construsol/Visor de Eventos.
+2025-02-04 13:24:40,818 - INFO - serverRevision.py - Line 522: Archivo CSV generado y subido exitosamente a SharePoint.
+2025-02-04 13:24:43,765 - INFO - serverRevision.py - Line 148: Eventos del registro 'Setup' eliminados correctamente.
+2025-02-04 13:24:43,775 - INFO - serverRevision.py - Line 162: Autenticación exitosa para subir el archivo CSV.
+2025-02-04 13:24:43,775 - DEBUG - saml_token_provider.py - Line 103: get_authentication_cookie called
+2025-02-04 13:24:43,775 - DEBUG - saml_token_provider.py - Line 106: Acquiring Access Token..
+2025-02-04 13:24:43,775 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:24:44,237 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /GetUserRealm.srf HTTP/11" 200 240
+2025-02-04 13:24:44,237 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:24:44,763 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /extSTS.srf HTTP/11" 200 3538
+2025-02-04 13:24:44,763 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:45,208 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /_forms/default.aspx?wa=wsignin1.0 HTTP/11" 302 118
+2025-02-04 13:24:45,355 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET / HTTP/11" 302 139
+2025-02-04 13:24:46,461 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET /SitePages/Inicio.aspx HTTP/11" 200 None
+2025-02-04 13:24:46,676 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:47,053 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/SoporteTecnico813/_api/contextInfo HTTP/11" 200 None
+2025-02-04 13:24:47,055 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:24:47,645 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/SoporteTecnico813/_api/Web/getFolderByServerRelativeUrl('%2Fsites%2FSoporteTecnico813%2FDocumentos%20compartidos%2FConstrusol%2FVisor%20de%20Eventos')/Files/add(overwrite=true,url='VisorEventos_Setup_04-02-2025_157.csv') HTTP/11" 200 None
+2025-02-04 13:24:47,660 - INFO - serverRevision.py - Line 175: Archivo VisorEventos_Setup_04-02-2025_157.csv subido exitosamente a SharePoint en /sites/SoporteTecnico813/Documentos compartidos/Construsol/Visor de Eventos.
+2025-02-04 13:24:47,660 - INFO - serverRevision.py - Line 522: Archivo CSV generado y subido exitosamente a SharePoint.
+2025-02-04 13:24:47,660 - INFO - serverRevision.py - Line 84: Obteniendo eventos del registro: Security
+2025-02-04 13:25:03,051 - INFO - serverRevision.py - Line 91: Eventos obtenidos del registro Security: 5164
+2025-02-04 13:25:03,335 - INFO - serverRevision.py - Line 148: Eventos del registro 'Security' eliminados correctamente.
+2025-02-04 13:25:26,464 - INFO - serverRevision.py - Line 162: Autenticación exitosa para subir el archivo CSV.
+2025-02-04 13:25:26,468 - DEBUG - saml_token_provider.py - Line 103: get_authentication_cookie called
+2025-02-04 13:25:26,468 - DEBUG - saml_token_provider.py - Line 106: Acquiring Access Token..
+2025-02-04 13:25:26,468 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:25:26,985 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /GetUserRealm.srf HTTP/11" 200 238
+2025-02-04 13:25:26,986 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): login.microsoftonline.com:443
+2025-02-04 13:25:27,560 - DEBUG - connectionpool.py - Line 546: https://login.microsoftonline.com:443 "POST /extSTS.srf HTTP/11" 200 3538
+2025-02-04 13:25:27,561 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:25:28,098 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /_forms/default.aspx?wa=wsignin1.0 HTTP/11" 302 118
+2025-02-04 13:25:29,556 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET / HTTP/11" 302 139
+2025-02-04 13:25:30,442 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "GET /SitePages/Inicio.aspx HTTP/11" 200 None
+2025-02-04 13:25:30,656 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:25:31,143 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/SoporteTecnico813/_api/contextInfo HTTP/11" 200 None
+2025-02-04 13:25:31,148 - DEBUG - connectionpool.py - Line 1051: Starting new HTTPS connection (1): idtsas.sharepoint.com:443
+2025-02-04 13:25:33,424 - DEBUG - connectionpool.py - Line 546: https://idtsas.sharepoint.com:443 "POST /sites/SoporteTecnico813/_api/Web/getFolderByServerRelativeUrl('%2Fsites%2FSoporteTecnico813%2FDocumentos%20compartidos%2FConstrusol%2FVisor%20de%20Eventos')/Files/add(overwrite=true,url='VisorEventos_Security_04-02-2025_157.csv') HTTP/11" 200 None
+2025-02-04 13:25:33,436 - INFO - serverRevision.py - Line 175: Archivo VisorEventos_Security_04-02-2025_157.csv subido exitosamente a SharePoint en /sites/SoporteTecnico813/Documentos compartidos/Construsol/Visor de Eventos.
+2025-02-04 13:25:33,436 - INFO - serverRevision.py - Line 522: Archivo CSV generado y subido exitosamente a SharePoint.
