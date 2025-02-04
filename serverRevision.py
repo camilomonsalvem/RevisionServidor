@@ -14,6 +14,7 @@ import wmi
 from dotenv import load_dotenv
 from office365.runtime.auth.authentication_context import AuthenticationContext
 from office365.sharepoint.client_context import ClientContext
+import re
 
 # Configure logging
 logging.basicConfig(
@@ -438,6 +439,91 @@ def send_chequeo_servidor_sharepoint(datos, servidor_lookup_id):
         print(msg_error)
         logging.error(msg_error)
         return None
+    
+# Función para obtener eventos del registro Setup usando wevtutil
+def get_setup_events_with_wevtutil_setup():
+    print("Obteniendo eventos del registro Setup usando wevtutil...")
+    try:
+        command = "wevtutil qe Setup /f:Text"
+        result = subprocess.check_output(command, shell=True, text=True, stderr=subprocess.DEVNULL)
+        events = result.strip().split("\n\n")  # Dividir por eventos individuales
+        print(f"Eventos obtenidos: {len(events)}")
+        return events
+    except subprocess.CalledProcessError as e:
+        print(f"Error al obtener eventos de Setup: {e}")
+        return []
+
+def parse_event_setup(event):
+    def extract_field(pattern, text):
+        match = re.search(pattern, text, re.MULTILINE)
+        return match.group(1).strip().replace(',', ' ') if match else "N/A"  # Reemplazar comas para mantener el formato CSV
+
+    # Formatear la fecha
+    raw_date = extract_field(r"Date:\s*(.*)", event)
+    try:
+        formatted_date = datetime.strptime(raw_date, "%Y-%m-%dT%H:%M:%S.%f0Z").strftime("%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        formatted_date = raw_date  # En caso de error, mantener la fecha original
+
+    # Mapear SID a nombres de usuario conocidos
+    user_sid = extract_field(r"User:\s*(.*)", event)
+    user_mapping = {"S-1-5-18": "SYSTEM"}
+    user_name = user_mapping.get(user_sid, user_sid)
+
+    return {
+        "Nombre de Registro": extract_field(r"Log Name:\s*(.*)", event),
+        "Origen": extract_field(r"Source:\s*(.*)", event),
+        "ID": extract_field(r"Event ID:\s*(\d+)", event),
+        "Nivel": extract_field(r"Level:\s*(.*)", event),
+        "Categoria de Tarea": extract_field(r"Task Category:\s*(.*)", event),
+        "Registrado": formatted_date,
+        "Equipo": extract_field(r"Computer:\s*(.*)", event),
+        "Usuario": user_name,
+        "Mensaje": extract_field(r"Description:\s*([\s\S]*?)\s*(?:Keywords:|$)", event).replace('\n', ' ')
+    }
+
+def save_events_to_csv_and_upload(events, sharepoint_folder, file_name):
+    headers = ["Nombre de Registro", "Origen", "ID", "Nivel", "Categoria de Tarea", "Registrado", "Equipo", "Usuario", "Mensaje"]
+    try:
+        # Usar StringIO para escribir el contenido del CSV en memoria
+        csv_buffer = io.StringIO()
+        writer = csv.DictWriter(csv_buffer, fieldnames=headers)
+        writer.writeheader()
+
+        for event in events:
+            if isinstance(event, str):  # Si el evento es una cadena (obtenido con wevtutil)
+                parsed_event = parse_event_setup(event)
+                writer.writerow(parsed_event)
+            else:  # Si el evento es un objeto (obtenido con WMI)
+                full_message = event.Message or ""
+                if hasattr(event, "StringInserts") and event.StringInserts:
+                    full_message += "\n" + "\n".join(event.StringInserts)
+
+                formatted_message = " ".join(full_message.splitlines())
+                task_category = "Ninguno" if event.Category == 0 else getattr(event, "CategoryString", None) or event.Category
+
+                row = {
+                    "Nombre de Registro": event.Logfile,
+                    "Origen": event.SourceName,
+                    "ID": event.EventCode,
+                    "Nivel": event.Type,
+                    "Categoria de Tarea": task_category,
+                    "Registrado": format_wmi_time(event.TimeGenerated),
+                    "Equipo": event.ComputerName,
+                    "Usuario": event.User,
+                    "Mensaje": formatted_message
+                }
+                writer.writerow(row)
+
+        # Subir el contenido del CSV a SharePoint
+        csv_buffer.seek(0)  # Volver al inicio del buffer para leerlo
+        upload_csv_buffer_to_sharepoint(csv_buffer, file_name, sharepoint_folder)
+        print("Archivo CSV generado y subido exitosamente a SharePoint.")
+        logging.info("Archivo CSV generado y subido exitosamente a SharePoint.")
+    except Exception as e:
+        msg_error = f"Error al generar o subir el archivo CSV: {e}"
+        print(msg_error)
+        logging.error(msg_error)
 
 if __name__ == "__main__":
     fecha_actual = datetime.now().strftime("%d-%m-%Y")
@@ -462,6 +548,9 @@ if __name__ == "__main__":
 
                     # Obtener eventos para el registro actual
                     events = get_all_events(logfile)
+                
+                    # Limpiar el visor de eventos si todo el proceso fue exitoso
+                    clear_event_log(logfile)
 
                     if events:
                         # Consolidar eventos
@@ -489,8 +578,6 @@ if __name__ == "__main__":
                                 chequeo_servidor_id,  # idChequeoServidor
                                 logfile
                             )
-                        # Limpiar el visor de eventos si todo el proceso fue exitoso
-                        clear_event_log(logfile)
                     else:
                         logging.error(f"No se encontraron eventos en el registro {logfile}.")
                         print(f"No se encontraron eventos en el registro {logfile}.")
@@ -500,6 +587,29 @@ if __name__ == "__main__":
         else:
             logging.error("No se encontró el ID del servidor. No se subieron eventos.")
             print("No se pudo encontrar el equipo en la lista. No se realizó ninguna operación.")
+
+        # Procesar únicamente los registros Security y Setup
+        logfiles_security_setup = ['Setup','Security']  # Nuevos registros a procesar
+
+        for logfile in logfiles_security_setup:
+            print(f"Procesando eventos del registro: {logfile}")
+            csv_file_name = f"VisorEventos_{logfile}_{fecha_actual}_{chequeo_servidor_id}.csv"
+
+            # Obtener eventos para el registro actual
+            if logfile == 'Setup':
+                events = get_setup_events_with_wevtutil_setup()
+            else:
+                events = get_all_events(logfile)
+            
+            clear_event_log(logfile)
+
+            if events:
+                # Generar y subir el archivo CSV a SharePoint
+                save_events_to_csv_and_upload(events, sharepoint_folder, csv_file_name)
+                print(f"Archivo CSV para {logfile} generado y subido exitosamente.")
+            else:
+                print(f"No se encontraron eventos en el registro {logfile}.")
+
     except Exception as e:
         logging.error(f"Error general durante la ejecución: {e}")
         print(f"Error general durante la ejecución: {e}")
