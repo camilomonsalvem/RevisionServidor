@@ -6,15 +6,16 @@ import smtplib
 import socket
 import subprocess
 import time
+import sys
+import psutil
+import wmi
+import re
 from datetime import datetime, timedelta, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-import psutil
-import wmi
-from dotenv import load_dotenv
+from dotenv import dotenv_values
 from office365.runtime.auth.authentication_context import AuthenticationContext
 from office365.sharepoint.client_context import ClientContext
-import re
 
 # Configure logging
 logging.basicConfig(
@@ -23,46 +24,76 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(filename)s - Line %(lineno)d: %(message)s"
 )
 
-script_dir = os.path.dirname(os.path.abspath(__file__))  # Get the script directory
-env_path = os.path.join(script_dir, ".env")
+# Detectar si el script está empaquetado como .exe
+if getattr(sys, 'frozen', False):
+    # Si es un .exe, obtener la ruta del ejecutable
+    script_dir = os.path.dirname(sys.executable)
+else:
+    # Si es un script normal, obtener la ruta del archivo .py
+    script_dir = os.path.dirname(os.path.abspath(__file__))
 
-load_dotenv(env_path)
+# Si está empaquetado como `.exe`, la ruta de PyInstaller cambia
+if getattr(sys, 'frozen', False):
+    temp_dir = sys._MEIPASS  # Carpeta temporal donde PyInstaller extrae los archivos
+    env_path_main = os.path.join(temp_dir, ".env.secure")  # Archivo dentro del .exe
+else:
+    env_path_main = os.path.join(script_dir, ".env.secure")  # Archivo en la carpeta del script
 
-empresa = os.getenv("empresa")
-username = os.getenv("idt_username")
-password = os.getenv("idt_password")
-site_url = os.getenv("site_url")
+env_path_local = os.path.join(script_dir, ".env")  # Archivo externo
 
-# Configuración de SharePoint VISOR DE EVENTOS
-list_name_visor_eventos = os.getenv("list_name_visor_eventos")
+# Cargar variables
+env_main = dotenv_values(env_path_main) if os.path.exists(env_path_main) else {}  # Cargar .env.secure
+env_local = dotenv_values(env_path_local) if os.path.exists(env_path_local) else {}  # Cargar .env externo
 
-# Configuración de SharePoint CHEQUEO SERVIDOR
-list_name_inventario = os.getenv("list_name_inventario")
-list_name_chequeo_servidor = os.getenv("list_name_chequeo_servidor")
+# Combinar variables, priorizando .env.local sobre .env.secure
+env = {**env_main, **env_local}
+
+# Cargar variables de configuración
+empresa = env.get("empresa", "EmpresaDefault")
+username = env.get("idt_username")
+password = env.get("idt_password")
+site_url = env.get("site_url")
+
+list_name_visor_eventos = env.get("list_name_visor_eventos")
+list_name_inventario = env.get("list_name_inventario")
+list_name_chequeo_servidor = env.get("list_name_chequeo_servidor")
+
+# Configuración del sistema
 nombre_equipo_actual = socket.gethostname()
-ruta_archivos_guardados = os.getenv("ruta_archivos_guardados")
-ruta_archivos_guardados_system_state = os.getenv("ruta_archivos_guardados_system_state")
+ruta_archivos_guardados = env.get("ruta_archivos_guardados")
+ruta_archivos_guardados_system_state = env.get("ruta_archivos_guardados_system_state")
 
 # Configuración de correo
-smtp_server = os.getenv("smtp_server")
-smtp_port = os.getenv("smtp_port")
-email_sender = os.getenv("email_sender")
-email_password = os.getenv("email_password")
-email_recipients = os.getenv("email_recipients").split(',')
+smtp_server = env.get("smtp_server")
+smtp_port = env.get("smtp_port")
+email_sender = env.get("email_sender")
+email_password = env.get("email_password")
 
-# Configuración de SharePoint Soporte Tecnico para archivo CSV
-site_url_soporte = os.getenv("site_url_soporte")
-sharepoint_folder = os.getenv("sharepoint_folder")
+powerapps_app_link = env.get("powerapps_app_link")
 
-print("Configuración cargada correctamente...")
-print(f"Usuario: {username}")
-print(f"URL del sitio: {site_url}")
-print(f"Lista Visor de Eventos: {list_name_visor_eventos}")
-print(f"Lista Inventario PC Construsol: {list_name_inventario}")
-print(f"Lista Chequeo Servidor: {list_name_chequeo_servidor}")
+# Manejo seguro de `email_recipients`
+email_recipients = env.get("email_recipients", "")
+if email_recipients:
+    email_recipients = email_recipients.replace(" ", "").split(',')
+else:
+    email_recipients = []
+
+# Configuración de SharePoint Soporte Técnico
+site_url_soporte = env.get("site_url_soporte")
+sharepoint_folder = env.get("sharepoint_folder")
+
+# Imprimir configuración cargada
+print("\n===== CONFIGURACIÓN CARGADA CORRECTAMENTE =====\n")
+print(f"Empresa: {empresa}")
 print(f"Nombre del equipo actual: {nombre_equipo_actual}")
 print(f"Ruta Archivos Guardados: {ruta_archivos_guardados}")
 print(f"Ruta Archivos Guardados System State: {ruta_archivos_guardados_system_state}")
+
+# Verificar si hay errores críticos
+if not username or not password or not site_url:
+    raise ValueError("Error: Faltan credenciales en .env.secure")
+if not email_recipients:
+    raise ValueError("Error: No se encontró la variable 'email_recipients' en el archivo .env")
 
 # Funciones para el VISOR DE EVENTOS
 
@@ -274,9 +305,7 @@ email_template_path = os.path.join(script_dir, "email_template.html")
 def send_email_notification(total_events, error_events, critical_events, warning_events, id_inventario, id_chequeo_servidor, log_type):
     try:
         powerapps_link = (
-            f"https://apps.powerapps.com/play/e/default-13fbbcde-1002-4ff4-b26f-ae75208bb81b/a/290f92a6-7699-4859-9b46-4ae1ee60b047"
-            f"?tenantId=13fbbcde-1002-4ff4-b26f-ae75208bb81b&hint=59684f0a-d15c-451a-9ffd-b73d5f5fae3a&sourcetime=1737999244624"
-            f"&screen=visor&idInventario={id_inventario}&idChequeoServidor={id_chequeo_servidor}&nombreRegistro={log_type}"
+            f"{powerapps_app_link}&screen=visor&idInventario={id_inventario}&idChequeoServidor={id_chequeo_servidor}&nombreRegistro={log_type}"
         )
 
         try:

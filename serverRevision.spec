@@ -5,7 +5,7 @@ a = Analysis(
     ['serverRevision.py'],
     pathex=[],
     binaries=[],
-    datas=[('.env', '.'), ('email_template.html', '.')],
+    datas=[('.env.secure', '.'), ('email_template.html', '.')],
     hiddenimports=['wmi'],
     hookspath=[],
     hooksconfig={},
