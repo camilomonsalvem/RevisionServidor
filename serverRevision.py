@@ -597,16 +597,15 @@ if __name__ == "__main__":
                         save_events_to_csv_and_upload(events, sharepoint_folder, csv_file_name)
 
                         # Enviar el correo de notificación con el resumen
-                        if event_count > 0:
-                            send_email_notification(
-                                len(consolidated_events),
-                                error_events,
-                                critical_events,
-                                warning_events,
-                                servidor_lookup_id,  # idInventario
-                                chequeo_servidor_id,  # idChequeoServidor
-                                logfile
-                            )
+                        send_email_notification(
+                            len(consolidated_events),
+                            error_events,
+                            critical_events,
+                            warning_events,
+                            servidor_lookup_id,  # idInventario
+                            chequeo_servidor_id,  # idChequeoServidor
+                            logfile
+                        )
                     else:
                         logging.error(f"No se encontraron eventos en el registro {logfile}.")
                         print(f"No se encontraron eventos en el registro {logfile}.")
