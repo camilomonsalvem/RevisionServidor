@@ -587,7 +587,7 @@ if __name__ == "__main__":
 
                         # Contar ítems de tipo Error, Critical y Warning en el consolidado
                         error_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() == "error")
-                        critical_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() == "critical")
+                        critical_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() in ["critical", "crítico", "critico"])
                         warning_events = sum(1 for event in consolidated_events if event["Type"] and event["Type"].lower() in ["warning", "advertencia"])
 
                         # Subir los eventos al visor de SharePoint asociados al chequeo del servidor
