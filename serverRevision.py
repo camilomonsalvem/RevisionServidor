@@ -302,7 +302,7 @@ def upload_events_to_sharepoint(events, chequeo_servidor_id, logfile):
 script_dir = os.path.dirname(os.path.abspath(__file__))
 email_template_path = os.path.join(script_dir, "email_template.html")
 
-def send_email_notification(total_events, error_events, critical_events, warning_events, id_inventario, id_chequeo_servidor, log_type):
+def send_email_notification(total_events, error_events, critical_events, warning_events, id_inventario, id_chequeo_servidor, log_type, tipoEventos):
     try:
         powerapps_link = (
             f"{powerapps_app_link}&screen=visor&idInventario={id_inventario}&idChequeoServidor={id_chequeo_servidor}&nombreRegistro={log_type}"
@@ -321,13 +321,33 @@ def send_email_notification(total_events, error_events, critical_events, warning
         html_body = html_body.replace("{{warning_events}}", str(warning_events))    
         html_body = html_body.replace("{{powerapps_link}}", powerapps_link)
 
+        # Determinar el emoji basado en la jerarquía de eventos
+        if tipoEventos == "Critico":
+            emoji = "🛑"
+            priority = "1"  # Alta prioridad
+            importance = "High"
+        elif tipoEventos == "Error":
+            emoji = "❌"
+            priority = "3"  # Normal
+            importance = "Normal"
+        elif tipoEventos == "Advertencia":
+            emoji = "⚠️"
+            priority = "3"  # Normal
+            importance = "Normal"
+        else:
+            emoji = "✅"  # Información en caso de que no haya eventos
+            priority = "5"  # Normal
+            importance = "Low"
+        
         fecha_actual = datetime.now().strftime("%d/%m/%Y")
-        subject = f"Se subió el Visor de Eventos de {empresa} - {log_type} - {fecha_actual}"
+        subject = f"{emoji} Se subió el Visor de Eventos de {empresa} - {log_type} - {fecha_actual}"
 
         msg = MIMEMultipart("alternative")
         msg['From'] = email_sender
         msg['To'] = ", ".join(email_recipients)  # Mostrar los correos como cadena
-        msg['Subject'] = subject  
+        msg['Subject'] = subject
+        msg['X-Priority'] = priority  # Establece la prioridad en el header
+        msg['Importance'] = importance  # Define la importancia en Outlook/Exchange
         msg.attach(MIMEText(html_body, "html"))
 
         server = smtplib.SMTP(smtp_server, int(smtp_port))
@@ -595,7 +615,17 @@ if __name__ == "__main__":
 
                         # Generar y subir el archivo CSV a SharePoint
                         save_events_to_csv_and_upload(events, sharepoint_folder, csv_file_name)
-
+                        
+                        # Determinar mayor cantidad de eventos
+                        if critical_events > 0:
+                            tipoEventos = "Critico"
+                        elif error_events > 0:
+                            tipoEventos = "Error"
+                        elif warning_events > 0:
+                            tipoEventos = "Advertencia"
+                        else:
+                            tipoEventos = "Ninguno"
+                        
                         # Enviar el correo de notificación con el resumen
                         send_email_notification(
                             len(consolidated_events),
@@ -604,7 +634,8 @@ if __name__ == "__main__":
                             warning_events,
                             servidor_lookup_id,  # idInventario
                             chequeo_servidor_id,  # idChequeoServidor
-                            logfile
+                            logfile,
+                            tipoEventos
                         )
                     else:
                         logging.error(f"No se encontraron eventos en el registro {logfile}.")
