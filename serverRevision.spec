@@ -1,19 +1,35 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-
 a = Analysis(
     ['serverRevision.py'],
     pathex=[],
     binaries=[],
-    datas=[('.env.secure', '.'), ('email_template.html', '.')],
-    hiddenimports=['wmi'],
+    datas=[
+        ('.env.secure', '.'), 
+        ('email_template.html', '.')
+    ],
+    hiddenimports=[
+        'wmi',
+        'requests',
+        'requests.adapters',
+        'requests.packages',
+        'urllib3',
+        'json',
+        'dotenv'
+    ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=[],
+    excludes=[
+        'office365',  # Excluir la biblioteca antigua
+        'matplotlib',
+        'numpy',
+        'pandas'
+    ],
     noarchive=False,
     optimize=0,
 )
+
 pyz = PYZ(a.pure)
 
 exe = EXE(
